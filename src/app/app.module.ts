@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MyApp } from './app.component';
@@ -13,7 +13,12 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SwingModule } from 'angular2-swing';
 import { SuperTabsModule } from 'ionic2-super-tabs';
 import { CalendarModule } from "ion2-calendar";
+import {InterceptedHttpProvider} from "../providers/intercepted-http/intercepted-http";
+import {registerLocaleData} from "@angular/common";
+import ptBr from '@angular/common/locales/pt';
+import {Util} from "../providers/base/util";
 
+registerLocaleData(ptBr);
 // By default TranslateLoader will look for translation json files in i18n/
 // So change this lool in the src/assets directory.
 export function HttpLoaderFactory(http: HttpClient) {
@@ -49,10 +54,17 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     StatusBar,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptedHttpProvider,
+      multi: true
+    },
+    {provide: LOCALE_ID, useValue: 'pt'},
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpClient,
-    DataProvider
+    DataProvider,
+    Util
   ]
 })
 export class AppModule { }

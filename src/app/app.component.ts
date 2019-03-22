@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { DataProvider } from '../providers/data/data';
+import {ANUNCIO_ROUTE_LIST} from "../pages/anuncios/conts.conts";
 
 @Component({
   templateUrl: 'app.html'
@@ -21,7 +22,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // Root Page of Application
-  rootPage: any = 'LandingPage';
+  rootPage: any = ANUNCIO_ROUTE_LIST;
 
   // Side Menu Pages
   pages: any;
@@ -83,6 +84,6 @@ export class MyApp {
 
   // Logout
   logout() {
-    this.nav.setRoot('LandingPage');
+    this.nav.setRoot(ANUNCIO_ROUTE_LIST);
   }
 }

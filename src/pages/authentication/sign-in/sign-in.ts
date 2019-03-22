@@ -10,6 +10,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
+import {AuthProvider} from "../../../providers/auth/auth";
+import {Util} from "../../../providers/base/util";
 
 
 @IonicPage()
@@ -26,8 +28,10 @@ export class SignInPage {
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    private formBuilder: FormBuilder,
+              public fb: FormBuilder,
+              public util: Util,
+              public auth: AuthProvider,
+              public navParams: NavParams,
     public menuCtrl: MenuController) {
     this.menuCtrl.enable(false); // Disable SideMenu
   }
@@ -45,9 +49,10 @@ export class SignInPage {
    * 
    */
   formValidation() {
-    this.signInForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.pattern(this.emailPattern), Validators.required])],
-      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+    this.signInForm = this.fb.group({
+      'nome_conta': ['hortifruti', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
+      'username': [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
+      'password': [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
     });
   }
 
