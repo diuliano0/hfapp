@@ -47,11 +47,11 @@ export class AuthProvider {
     }
 
     static getToken(){
-        let token = window.localStorage.getItem('usuario');
+        let token = window.localStorage.getItem('token');
         if(token == null){
             return null;
         }
-        return JSON.parse(token).data;
+        return JSON.parse(token);
     }
 
     static setToken(token){

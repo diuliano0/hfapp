@@ -12,6 +12,7 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { FormBuilder, Validators } from '@angular/forms';
 import {AuthProvider} from "../../../providers/auth/auth";
 import {Util} from "../../../providers/base/util";
+import {ANUNCIO_ROUTE_LIST} from "../../anuncios/conts.conts";
 
 
 @IonicPage()
@@ -65,13 +66,11 @@ export class SignInPage {
    * ** You can call any backend API into this function. **
    */
   doLogin(value) {
-
     if(!this.signInForm.invalid){
       this.auth.getAccessToken(value).subscribe(res=>{
-
+        this.navCtrl.setRoot(ANUNCIO_ROUTE_LIST);
       });
     }
-
   }
 
   /**

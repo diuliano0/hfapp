@@ -1,35 +1,36 @@
 <!-- Header  -->
 <ion-header no-border>
-  <header-three title="Hotels"></header-three>
+  <header-one title="Hotels"></header-one>
 </ion-header>
 
 <!-- Content  -->
 <ion-content padding>
-  <div *ngIf="hotels.length > 0">
+  <div>
     <!-- List of Hotels  -->
-    <ion-list no-lines no-margin *ngFor="let hotel of hotels" (tap)="viewDetails(hotel)">
+    <ion-list no-lines no-margin *ngFor="let item of items?.data" (tap)="viewDetails(hotel)">
       <ion-item class="animated fadeInLeft">
 
         <!-- Hotel Image -->
-        <ion-thumbnail item-start>
-          <img [src]="hotel.image[0]">
-        </ion-thumbnail>
+        <!--<ion-thumbnail *ngIf="(item.anexo.data.length > 0)" item-start>
+          <img [src]="item.anexo.data[0].url_thumb">
+        </ion-thumbnail>-->
 
         <!-- Name of Hotel -->
-        <p text-wrap class="name">{{hotel.name }}</p>
+        <p text-wrap class="name">{{item?.titulo }}</p>
 
         <!-- Hotel Review and Type  -->
-        <p class="reviews">{{hotel.totalReviews}} Reviews | {{hotel.type}} hotel</p>
+        <!--<p class="reviews">{{item.quantidade}} Reviews | {{hotel.type}} hotel</p>-->
+        <p class="reviews">{{item?.quantidade}}</p>
 
         <ion-item style="background: transparent" no-padding>
 
           <!-- Hotel Ratings  -->
-          <rating [(ngModel)]="hotel.star" readOnly="false" max="{{hotel.star}}" emptyStarIconName="ios-star-outline" halfStarIconName="star-half"
+          <!--<rating [(ngModel)]="hotel.star" readOnly="false" max="{{hotel.star}}" emptyStarIconName="ios-star-outline" halfStarIconName="star-half"
                   starIconName="ios-star" nullable="true">
-          </rating>
+          </rating>-->
 
           <!-- Price  -->
-          <ion-badge item-end>USD{{hotel.price}}</ion-badge>
+          <ion-badge item-end>R${{item?.valor}}</ion-badge>
         </ion-item>
       </ion-item>
     </ion-list>

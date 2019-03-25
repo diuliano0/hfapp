@@ -17,6 +17,8 @@ import {InterceptedHttpProvider} from "../providers/intercepted-http/intercepted
 import {registerLocaleData} from "@angular/common";
 import ptBr from '@angular/common/locales/pt';
 import {Util} from "../providers/base/util";
+import { UsuarioProvider } from '../providers/usuario/usuario';
+import { AnuncioProvider } from '../providers/anuncio/anuncio';
 
 registerLocaleData(ptBr);
 // By default TranslateLoader will look for translation json files in i18n/
@@ -64,7 +66,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpClient,
     DataProvider,
-    Util
+    Util,
+    UsuarioProvider,
+    AnuncioProvider
   ]
 })
 export class AppModule { }
