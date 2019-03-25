@@ -50,7 +50,7 @@ export class SignInPage {
    */
   formValidation() {
     this.signInForm = this.fb.group({
-      'nome_conta': ['hortifruti', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
+      'nome_conta': ['hortfrut', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
       'username': [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
     });
@@ -64,8 +64,14 @@ export class SignInPage {
    * 
    * ** You can call any backend API into this function. **
    */
-  doLogin() {
-    this.navCtrl.setRoot('HomePage');
+  doLogin(value) {
+
+    if(!this.signInForm.invalid){
+      this.auth.getAccessToken(value).subscribe(res=>{
+
+      });
+    }
+
   }
 
   /**

@@ -17,7 +17,7 @@
         <!-- Sign In Form  -->
         <div class="form-content">
 
-            <form class="animated slideInUp" [formGroup]="signInForm">
+            <form class="animated slideInUp" [formGroup]="signInForm" (submit)="doLogin(signInForm.value)">
                 <ion-list>
 
                     <!-- Email Address -->
@@ -33,7 +33,7 @@
                     <!-- Email Validation Message  -->
                     <div class="error-message"
                          *ngIf="!signInForm.controls.username.valid  && signInForm.controls.username.dirty">
-                        <p>Please enter a valid email address.</p>
+                        <p>O usuário é obrigatório.</p>
                     </div>
 
                     <!-- Password -->
@@ -49,7 +49,7 @@
                     <!-- Password Validation Message  -->
                     <div class="error-message"
                          *ngIf="!signInForm.controls.password.valid  && signInForm.controls.password.dirty">
-                        <p>Please enter a valid password.</p>
+                        <p>A senha é obrigatória.</p>
                     </div>
 
                     <!-- Forget Password Button  -->
@@ -60,8 +60,8 @@
                 </ion-list>
 
                 <!-- Sign In Button  -->
-                <button ion-button round block type="button" class="custom-btn" (tap)="doLogin()">
-                    Sign In
+                <button ion-button round block type="submit" class="custom-btn" >
+                    Login
                 </button>
 
                 <!-- Sign Up Button  -->
