@@ -5,6 +5,8 @@ import {
 } from 'ionic-angular';
 import {DataProvider} from "../../../providers/data/data";
 import {AnuncioProvider} from "../../../providers/anuncio/anuncio";
+import {Subscription} from "rxjs/Subscription";
+import {Util} from "../../../providers/base/util";
 
 /**
  * Generated class for the AnuncioListPage page.
@@ -18,7 +20,8 @@ import {AnuncioProvider} from "../../../providers/anuncio/anuncio";
     selector: 'page-anuncio-list',
     templateUrl: './anuncio-list.html',
     providers: [
-        AnuncioProvider
+        AnuncioProvider,
+        Util
     ]
 })
 export class AnuncioListPage {
@@ -27,9 +30,14 @@ export class AnuncioListPage {
     // Array List of Hotels
     items: any = [];
 
+    private _nextPage: string = null;
+
+    private _requestNextPageBusca: Subscription;
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public anuncio: AnuncioProvider,
+                public util: Util,
                 public viewCtrl: ViewController,
                 public modalCtrl: ModalController,
                 public dataProvider: DataProvider) {
@@ -37,6 +45,9 @@ export class AnuncioListPage {
 
     /** Do any initialization */
     ngOnInit() {
+        let html = `
+            <b class="ion-ios-square"></b>
+        `;
         this.getHotelList();
     }
 
@@ -49,7 +60,10 @@ export class AnuncioListPage {
      * You get `DataProvider` Service at - 'src/providers/data/data';
      */
     getHotelList() {
-        this.anuncio.list().subscribe(res=>{
+        this.anuncio.list({
+            include:'anexo,enderecos,anunciante.pessoa.telefones'
+        }).subscribe(res=>{
+            //debugger;
           this.items = res;
         });
     }
@@ -57,9 +71,8 @@ export class AnuncioListPage {
     /**
      * Open Hotel Details Page
      */
-    viewDetails(hotel) {
-        this.dismiss();
-        this.modalCtrl.create('HotelDetailsPage', {hotelDetails: hotel}).present();
+    viewDetails(anuncio) {
+        this.modalCtrl.create('AnuncioDetailPage', {anuncioDetalhe: anuncio}).present();
     }
 
     /**
@@ -68,6 +81,40 @@ export class AnuncioListPage {
      */
     dismiss() {
         this.viewCtrl.dismiss();
+    }
+
+    procedimentoRefresh(refresher){
+        let load = this.util.createLoading('Listando...');
+        this.anuncio.list({
+            include:'anexo,enderecos,anunciante.pessoa.telefones'
+        }).subscribe((res: any) => {
+            this.items = res;
+            this._nextPage = res.meta.pagination.links.next;
+            load.dismiss();
+            refresher.complete();
+        });
+    }
+
+    doInfinite(infiniteScroll) {
+
+        if (this._nextPage != null) {
+
+            this._requestNextPageBusca = this.anuncio.nextPage(this._nextPage)
+                .subscribe(items => {
+
+                    for (let i of items.data) {
+                        this.items.push(i);
+                    }
+
+                    this._nextPage = items.meta.pagination.links.next;
+
+                    infiniteScroll.complete();
+                }, error => {
+                    infiniteScroll.complete();
+                });
+        } else {
+            infiniteScroll.complete();
+        }
     }
 
 }

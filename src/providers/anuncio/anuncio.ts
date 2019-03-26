@@ -28,4 +28,15 @@ export class AnuncioProvider {
     );
   }
 
+  nextPage(_url: string = ""): Observable<any> {
+
+    let options = {headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Enctype': 'application/json'
+    }};
+
+    return this.http.get(_url, options);
+  }
+
 }

@@ -1,26 +1,31 @@
 <!-- Header  -->
 <ion-header no-border>
-  <header-one title="Hotels"></header-one>
+  <header-one title="Anúncios"></header-one>
 </ion-header>
 
 <!-- Content  -->
 <ion-content padding>
+  <ion-refresher (ionRefresh)=" procedimentoRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div>
     <!-- List of Hotels  -->
-    <ion-list no-lines no-margin *ngFor="let item of items?.data" (tap)="viewDetails(hotel)">
+    <ion-list no-lines no-margin *ngFor="let item of items?.data" (tap)="viewDetails(item)">
       <ion-item class="animated fadeInLeft">
 
         <!-- Hotel Image -->
-        <!--<ion-thumbnail *ngIf="(item.anexo.data.length > 0)" item-start>
-          <img [src]="item.anexo.data[0].url_thumb">
-        </ion-thumbnail>-->
+        <ion-thumbnail item-start>
+          <img  *ngIf="(item.anexo.data.length > 0)" [src]="item.anexo.data[0].url_thumb">
+          <img  *ngIf="!(item.anexo.data.length > 0)" src="../../../assets/imgs/sem_imagem.jpg">
+        </ion-thumbnail>
 
         <!-- Name of Hotel -->
         <p text-wrap class="name">{{item?.titulo }}</p>
 
         <!-- Hotel Review and Type  -->
         <!--<p class="reviews">{{item.quantidade}} Reviews | {{hotel.type}} hotel</p>-->
-        <p class="reviews">{{item?.quantidade}}</p>
+        <p class="reviews">Publicado: {{item?.created_at.date|date:'dd MMMM HH:mm'}}</p>
+        <p class="reviews" *ngIf="(item.enderecos.data.length > 0)">{{item.enderecos.data[0].cidade_nome}} - {{item.enderecos.data[0].estado_uf}}</p>
 
         <ion-item style="background: transparent" no-padding>
 
@@ -31,8 +36,12 @@
 
           <!-- Price  -->
           <ion-badge item-end>R${{item?.valor}}</ion-badge>
+          <ion-badge *ngIf="(item?.quantidade > 0)" item-end>Qtd: {{item?.quantidade}}</ion-badge>
         </ion-item>
       </ion-item>
     </ion-list>
   </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

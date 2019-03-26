@@ -22,51 +22,23 @@ export class DataProvider {
    */
   getSideMenus() {
     return [
-      {
-        title: 'Home', icon: 'home', component: 'HomePage'
-      },
-      {
+      {title: 'Início', icon: 'home', component: 'AnuncioListPage'},
+      /*{
         title: 'Search', icon: 'search',
         subPages: [{
           title: 'Flight',
           icon: 'fa fa-fighter-jet',
           component: 'SearchFlightPage',
-        }, {
-          title: 'Hotels',
-          icon: 'fa fa-bed',
-          component: 'SearchHotelsPage',
-        }, {
-          title: 'Car',
-          icon: 'fa fa-car',
-          component: 'SearchCarPage',
-        }, {
-          title: 'Bus',
-          icon: 'fa fa-bus',
-          component: 'SearchBusPage',
-        }, {
-          title: 'Train',
-          icon: 'fa fa-train',
-          component: 'SearchTrainPage',
-        }, {
-          title: 'Vacation',
-          icon: 'fa fa-globe',
-          component: 'SearchVacationPage',
-        }, {
-          title: 'Cruise',
-          icon: 'fa fa-ship',
-          component: 'SearchCruisePage',
-        }, {
-          title: 'Activities',
-          icon: 'fa fa-snowflake-o',
-          component: 'SearchActivitiesPage',
         }]
       },
       { title: 'Deals', icon: 'md-megaphone', component: 'DealsPage' },
       { title: 'Your Profile', icon: 'md-person', component: 'ProfilePage' },
       { title: 'About Us', icon: 'bookmark', component: 'AboutUsPage' },
       { title: 'Contact Us', icon: 'call', component: 'ContactUsPage' },
-      { title: 'Language', icon: 'ios-switch', component: 'LanguagePage' },
-      { title: 'Settings', icon: 'ios-settings', component: 'SettingsPage' }
+      { title: 'Language', icon: 'ios-switch', component: 'LanguagePage' },*/
+      { title: 'Perfil', icon: 'md-person', component: 'ProfilePage' },
+      { title: 'Meus Anúncios', icon: 'grid', component: 'ProfilePage' },
+      { title: 'Favoritos', icon: 'bookmark', component: 'ProfilePage' },
     ]
   }
 
