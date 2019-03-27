@@ -26,14 +26,13 @@
                         <ion-label>
                             <ion-icon ios="ios-person" md="md-person" color="color2"></ion-icon>
                         </ion-label>
-                        <ion-input type="text" placeholder="Nome" name="name" formControlName="name"
-                                   [(ngModel)]="registrationForm.name"
-                                   [class.invalid]="!registrationForm.controls.name.valid && registrationForm.controls.name.dirty"></ion-input>
+                        <ion-input type="text" placeholder="Nome" name="nome" formControlName="nome"
+                                   [(ngModel)]="registrationForm.nome"
+                                   [class.invalid]="!registrationForm.controls.nome.valid && registrationForm.controls.nome.dirty"></ion-input>
                     </ion-item>
 
                     <!-- Name Validation Message  -->
-                    <div class="error-message"
-                         *ngIf="!registrationForm.controls.name.valid  && registrationForm.controls.name.dirty">
+                    <div class="error-message" *ngIf="!registrationForm.controls.nome.valid  && registrationForm.controls.nome.dirty">
                         <p>Nome é obrigatório.</p>
                     </div>
                     <!-- User Name -->

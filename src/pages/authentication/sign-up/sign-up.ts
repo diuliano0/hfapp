@@ -54,7 +54,7 @@ export class SignUpPage {
      */
     formValidation() {
         this.registrationForm = this.formBuilder.group({
-            name: ['', Validators.compose([Validators.minLength(6), Validators.required])],
+            nome: ['', Validators.compose([Validators.minLength(6), Validators.required])],
             username: ['', Validators.compose([Validators.minLength(6), Validators.maxLength(255), Validators.required])],
             email: ['', Validators.compose([Validators.pattern(this.emailPattern), Validators.required])],
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
@@ -73,18 +73,35 @@ export class SignUpPage {
      */
     doRegistration(value) {
         if (!this.registrationForm.invalid) {
+
             let pessoa = {
-                nome:value.nome,
-                email:value.email,
+                nome: value.nome,
+                email: value.email,
+                telefone: [{
+                    ddd: 63,
+                    numero: 992348338,
+                    tipo: 0,
+                }]
             };
+
             let user = {
-                username:value.username,
-                email:value.email,
+                username: value.username,
+                email: value.email,
+                password: value.password,
+                password_confirmation: value.password,
             };
-            this.anuncianteProvider.create(value).subscribe(res=>{
+
+            value.status = 1;
+
+            this.anuncianteProvider.create({
+                pessoa: pessoa,
+                user: user,
+                status: 1
+            }).subscribe(res => {
                 this.util.criarAlert('Sucesso!', 'Conta criada com sucesso');
                 this.navCtrl.setRoot('SignInPage');
             });
+
         }
     }
 
