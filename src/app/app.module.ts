@@ -19,6 +19,7 @@ import ptBr from '@angular/common/locales/pt';
 import {Util} from "../providers/base/util";
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { AnuncioProvider } from '../providers/anuncio/anuncio';
+import { AnuncianteProvider } from '../providers/anunciante/anunciante';
 
 registerLocaleData(ptBr);
 // By default TranslateLoader will look for translation json files in i18n/
@@ -68,7 +69,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DataProvider,
     Util,
     UsuarioProvider,
-    AnuncioProvider
+    AnuncioProvider,
+    AnuncianteProvider
   ]
 })
 export class AppModule { }

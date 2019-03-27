@@ -45,9 +45,6 @@ export class AnuncioListPage {
 
     /** Do any initialization */
     ngOnInit() {
-        let html = `
-            <b class="ion-ios-square"></b>
-        `;
         this.getHotelList();
     }
 
