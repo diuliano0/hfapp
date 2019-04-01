@@ -27,7 +27,7 @@ export class HeaderOneComponent {
    * Open Language Settings Page
    */
   goToLanguageSettingPage() {
-    this.navCtrl.setRoot('LanguagePage');
+    this.navCtrl.setRoot('FiltroAnuncioPage');
   }
 
   /**

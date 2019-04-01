@@ -105,7 +105,8 @@
                             <ion-icon ios="ios-call" md="md-call" color="color2"></ion-icon>
                         </ion-label>
                         <ion-input type="tel" placeholder="Telefone" name="telefone" formControlName="telefone"
-                                   (keyup)="phoneMask(registrationForm.controls.telefone.value, $event.target)"
+                                   autocomplete="on"
+                                   (keypress)="phoneMask(registrationForm.controls.telefone.value, $event.target)"
                                    [(ngModel)]="registrationForm.telefone"
                                    [class.invalid]="!registrationForm.controls.telefone.valid && registrationForm.controls.telefone.dirty"></ion-input>
                     </ion-item>

@@ -166,13 +166,15 @@ export class Util {
         }
         if (value.length < 5)
             return value;
+        if(value.length > 14)
+            return value.substr(0,14);
 
 
         const phoneNumberMask9 = ['(', /[1-9]/, /[1-9]/, ')',/\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
         const phoneNumberMask8 = ['(', /[1-9]/, /[1-9]/, ')',/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
         let conformedPhoneNumber: any;
 
-        if (value.length > 13) {
+        if (value.length > 12) {
             conformedPhoneNumber = conformToMask(
                 value,
                 phoneNumberMask9,

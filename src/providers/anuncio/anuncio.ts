@@ -13,7 +13,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class AnuncioProvider {
 
-  public ressourceUrl: any = ConfigProvider.host + '/api/v1/admin/anuncio/anuncio';
+  public ressourceUrl: any = ConfigProvider.host + '/api/v1/front/anuncio/anuncio';
 
   constructor(public http: HttpClient) {}
 

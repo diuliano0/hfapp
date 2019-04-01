@@ -74,12 +74,14 @@ export class SignUpPage {
     doRegistration(value) {
         if (!this.registrationForm.invalid) {
 
+            let telefone = value.telefone.split(')');
+            telefone[0] = telefone[0].replace('(', '');
             let pessoa = {
                 nome: value.nome,
                 email: value.email,
                 telefone: [{
-                    ddd: 63,
-                    numero: 992348338,
+                    ddd: telefone[0],
+                    numero: telefone[1],
                     tipo: 0,
                 }]
             };
@@ -107,7 +109,7 @@ export class SignUpPage {
     }
 
     phoneMask(value, self) {
-        //self.value = Util.dddPhoneMask(value, self);
+        self.value = Util.dddPhoneMask(value, self);
     }
 
     /**
