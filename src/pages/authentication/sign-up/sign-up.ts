@@ -85,20 +85,21 @@ export class SignUpPage {
             };
 
             let user = {
+                nome: value.nome,
                 username: value.username,
                 email: value.email,
                 password: value.password,
                 password_confirmation: value.password,
+                status: 1,
             };
 
-            value.status = 1;
 
             this.anuncianteProvider.create({
                 pessoa: pessoa,
                 user: user,
                 status: 1
             }).subscribe(res => {
-                this.util.criarAlert('Sucesso!', 'Conta criada com sucesso');
+                this.util.criarAlert('Sucesso!', 'Conta criada com sucesso', 'ok');
                 this.navCtrl.setRoot('SignInPage');
             });
 
@@ -106,7 +107,7 @@ export class SignUpPage {
     }
 
     phoneMask(value, self) {
-        self.value = Util.dddPhoneMask(value, self);
+        //self.value = Util.dddPhoneMask(value, self);
     }
 
     /**
