@@ -20,6 +20,8 @@ import {Util} from "../providers/base/util";
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { AnuncioProvider } from '../providers/anuncio/anuncio';
 import { AnuncianteProvider } from '../providers/anunciante/anunciante';
+import { CategoriaProvider } from '../providers/categoria/categoria';
+import {IonicSelectableModule} from "ionic-selectable";
 
 registerLocaleData(ptBr);
 // By default TranslateLoader will look for translation json files in i18n/
@@ -35,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    IonicSelectableModule,
     SwingModule,
     SuperTabsModule.forRoot(),
     TranslateModule.forRoot({
@@ -70,7 +73,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     Util,
     UsuarioProvider,
     AnuncioProvider,
-    AnuncianteProvider
+    AnuncianteProvider,
+    CategoriaProvider
   ]
 })
 export class AppModule { }

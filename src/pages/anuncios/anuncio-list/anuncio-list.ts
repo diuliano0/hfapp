@@ -29,7 +29,7 @@ export class AnuncioListPage {
 
     // Array List of Hotels
     items: any = [];
-
+    consulta;
     private _nextPage: string = null;
 
     private _requestNextPageBusca: Subscription;
@@ -41,10 +41,12 @@ export class AnuncioListPage {
                 public viewCtrl: ViewController,
                 public modalCtrl: ModalController,
                 public dataProvider: DataProvider) {
+
     }
 
     /** Do any initialization */
     ngOnInit() {
+        this.consulta = this.navParams.get('consulta');
         this.getHotelList();
     }
 
@@ -58,6 +60,7 @@ export class AnuncioListPage {
      */
     getHotelList() {
         this.anuncio.list({
+            consulta:JSON.stringify(this.consulta),
             include:'anexo,enderecos,anunciante.pessoa.telefones'
         }).subscribe(res=>{
             //debugger;
