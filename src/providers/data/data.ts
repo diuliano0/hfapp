@@ -38,7 +38,7 @@ export class DataProvider {
       { title: 'Contact Us', icon: 'call', component: 'ContactUsPage' },
       { title: 'Language', icon: 'ios-switch', component: 'LanguagePage' },*/
       { title: 'Perfil', icon: 'md-person', component: 'ProfilePage' },
-      { title: 'Meus Anúncios', icon: 'grid', component: 'ProfilePage'},
+      { title: 'Meus Anúncios', icon: 'grid', component: 'MeusAnunciosPage'},
       { title: 'Favoritos', icon: 'bookmark', component: 'ProfilePage' },
     ]
   }

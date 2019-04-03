@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {ConfigProvider} from "../base/config";
 import {map} from "rxjs/operators";
+import {Observable} from "rxjs/Observable";
 
 /*
  Generated class for the AnuncianteProvider provider.
@@ -18,6 +19,17 @@ export class AnuncianteProvider {
 
     create(data, params: any = {}, headers: HttpHeaders = null) {
         return this.http.post(this.ressourceUrl, data, {
+            params: params,
+            headers: headers
+        }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
+    perfil(params: any = {}, headers: HttpHeaders = null): Observable<any> {
+        return this.http.get(this.ressourceUrl + '/perfil', {
             params: params,
             headers: headers
         }).pipe(

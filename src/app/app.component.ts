@@ -2,96 +2,102 @@
  * @author    ThemesBuckets <themebucketbd@gmail.com>
  * @copyright Copyright (c) 2018
  * @license   Fulcrumy
- * 
+ *
  * File path - '../../src/app/app.component'
  */
 
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { TranslateService } from '@ngx-translate/core';
-import { DataProvider } from '../providers/data/data';
+import {Component, ViewChild} from '@angular/core';
+import {Nav, Platform, MenuController} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {TranslateService} from '@ngx-translate/core';
+import {DataProvider} from '../providers/data/data';
 import {ANUNCIO_ROUTE_LIST} from "../pages/anuncios/conts.conts";
 import {AuthProvider} from "../providers/auth/auth";
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html',
 })
 export class MyApp {
 
-  @ViewChild(Nav) nav: Nav;
+    @ViewChild(Nav) nav: Nav;
 
-  // Root Page of Application
-  rootPage: any = ANUNCIO_ROUTE_LIST;
+    // Root Page of Application
+    rootPage: any = ANUNCIO_ROUTE_LIST;
 
-  // Side Menu Pages
-  pages: any;
+    // Side Menu Pages
+    pages: any;
 
-  // Selected Side Menu
-  selectedMenu: any;
+    anunciante: any;
 
-  constructor(public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
-    public menuCtrl: MenuController,
-    public translateService: TranslateService,
-    public dataProvider: DataProvider) {
-    this.initializeApp();
+    // Selected Side Menu
+    selectedMenu: any;
 
-    // Set Default Language
-    translateService.setDefaultLang('pt');
+    constructor(public platform: Platform,
+                public statusBar: StatusBar,
+                public splashScreen: SplashScreen,
+                public menuCtrl: MenuController,
+                public translateService: TranslateService,
+                public dataProvider: DataProvider) {
+        this.initializeApp();
 
-    // Get List of Side Menu Data
-    this.getSideMenuData();
-  }
+        // Set Default Language
+        translateService.setDefaultLang('pt');
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-  }
-
-  /**
-   * Get Menu Data from Service of `DataProvider`
-   * You get `DataProvider` Service at - 'src/providers/data/data';
-   */
-  getSideMenuData() {
-    this.pages = (AuthProvider.autenticado())?this.dataProvider.getSideMenusAuth(): this.dataProvider.getSideMenus();
-  }
-
-  /**
-   * Open Selected Page
-   * @param component 
-   * @param index 
-   */
-  openPage(component, index) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    if (component) {
-      this.nav.setRoot(component);
-      this.menuCtrl.close();
-    } else {
-      if (this.selectedMenu) {
-        this.selectedMenu = 0;
-      } else {
-        this.selectedMenu = index;
-      }
+        // Get List of Side Menu Data
+        this.getSideMenuData();
+        this.anunciante = AuthProvider.getUser();
     }
-  }
 
-  // Logout
-  logout() {
-    this.nav.setRoot(ANUNCIO_ROUTE_LIST);
-  }
-  entrar(){
-    this.nav.setRoot('SignInPage');
-  }
+    initializeApp() {
+        this.platform.ready().then(() => {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            this.statusBar.styleDefault();
+            this.splashScreen.hide();
+        });
+    }
 
-  isAutenticado(){
-    return AuthProvider.autenticado();
-  }
+    /**
+     * Get Menu Data from Service of `DataProvider`
+     * You get `DataProvider` Service at - 'src/providers/data/data';
+     */
+    getSideMenuData() {
+        this.pages = (AuthProvider.autenticado()) ? this.dataProvider.getSideMenusAuth() : this.dataProvider.getSideMenus();
+    }
+
+    /**
+     * Open Selected Page
+     * @param component
+     * @param index
+     */
+    openPage(component, index) {
+        // Reset the content nav to have just this page
+        // we wouldn't want the back button to show in this scenario
+        if (component) {
+            this.nav.setRoot(component);
+            this.menuCtrl.close();
+        } else {
+            if (this.selectedMenu) {
+                this.selectedMenu = 0;
+            } else {
+                this.selectedMenu = index;
+            }
+        }
+    }
+
+    // Logout
+    logout() {
+        AuthProvider.deslogar();
+        this.pages = (AuthProvider.autenticado()) ? this.dataProvider.getSideMenusAuth() : this.dataProvider.getSideMenus();
+        this.nav.setRoot(ANUNCIO_ROUTE_LIST);
+    }
+
+    entrar() {
+        this.nav.setRoot('SignInPage');
+    }
+
+    isAutenticado() {
+        return AuthProvider.autenticado();
+    }
 }

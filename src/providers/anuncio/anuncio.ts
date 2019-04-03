@@ -28,6 +28,17 @@ export class AnuncioProvider {
     );
   }
 
+  anuncioByPerfil(params: any = {}, headers: HttpHeaders = null): Observable<any> {
+    return this.http.get(this.ressourceUrl+'/meus-anuncios', {
+      params: params,
+      headers: headers
+    }).pipe(
+        map((response: any) => {
+          return response;
+        })
+    );
+  }
+
   nextPage(_url: string = ""): Observable<any> {
 
     let options = {headers: {

@@ -13,12 +13,16 @@ import { FormBuilder, Validators } from '@angular/forms';
 import {AuthProvider} from "../../../providers/auth/auth";
 import {Util} from "../../../providers/base/util";
 import {ANUNCIO_ROUTE_LIST} from "../../anuncios/conts.conts";
+import {AnuncianteProvider} from "../../../providers/anunciante/anunciante";
 
 
 @IonicPage()
 @Component({
   selector: 'page-sign-in',
   templateUrl: 'sign-in.html',
+  providers:[
+    AnuncianteProvider
+  ]
 })
 export class SignInPage {
 
@@ -32,6 +36,7 @@ export class SignInPage {
               public fb: FormBuilder,
               public util: Util,
               public auth: AuthProvider,
+              public anuncianteProvider: AnuncianteProvider,
               public navParams: NavParams,
     public menuCtrl: MenuController) {
     this.menuCtrl.enable(false); // Disable SideMenu
@@ -68,7 +73,12 @@ export class SignInPage {
   doLogin(value) {
     if(!this.signInForm.invalid){
       this.auth.getAccessToken(value).subscribe(res=>{
-        this.navCtrl.setRoot(ANUNCIO_ROUTE_LIST);
+        this.anuncianteProvider.perfil({
+          include:'pessoa.telefone,anexo,pessoa.endereco,usuario'
+        }).subscribe(res=>{
+          AuthProvider.setUser(res);
+          this.navCtrl.setRoot(ANUNCIO_ROUTE_LIST);
+        });
       });
     }
   }

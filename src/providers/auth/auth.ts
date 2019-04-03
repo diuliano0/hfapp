@@ -35,11 +35,11 @@ export class AuthProvider {
     public retryFailedRequests(): void {}
 
     static getUser(){
-        let usuario = window.localStorage.getItem('usuario');
+        let usuario = JSON.parse(window.localStorage.getItem('usuario'));
         if(usuario == null){
             return null;
         }
-        return JSON.parse(usuario).data;
+        return usuario;
     }
 
     static setUser(user){
@@ -75,6 +75,6 @@ export class AuthProvider {
     }
 
     static deslogar(){
-        window.localStorage.removeItem('usuario');
+        window.localStorage.removeItem('token');
     }
 }
