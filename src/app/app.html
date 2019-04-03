@@ -24,7 +24,7 @@
   <!-- Body Content  -->
   <ion-content>
 
-    <ion-item ion-item *ngFor="let p of pages;  let i=index" (click)="openPage(p.component, i);">
+    <ion-item ion-item *ngFor="let p of pages;  let i=index"  (click)="openPage(p.component, i);">
       <ion-row>
 
         <!-- Menu Icon  -->
@@ -33,7 +33,7 @@
         </ion-col>
 
         <!--  Name of Menu  -->
-        <ion-col col-9 class="menu-name">
+        <ion-col   col-9 class="menu-name">
           <span ion-text color="color2">
             {{p.title}}
             <ion-icon color="color2" [name]="selectedMenu == i? 'arrow-down' : 'arrow-forward'" *ngIf="p.subPages" float-right></ion-icon>
@@ -60,8 +60,11 @@
   <!-- Footer  -->
   <ion-footer>
     <!-- Logout Option  -->
-    <button ion-button full no-margin color="color1" (click)="logout()">
-      <ion-icon name="send"></ion-icon> Logout
+    <button *ngIf="isAutenticado()" ion-button full no-margin color="color1" (click)="logout()">
+      <ion-icon name="send"></ion-icon> Sair
+    </button>
+    <button *ngIf="!isAutenticado()" ion-button full no-margin color="color1" (click)="entrar()">
+      <ion-icon name="send"></ion-icon> Entrar
     </button>
   </ion-footer>
 </ion-menu>
@@ -121,8 +124,11 @@
   <!-- Footer  -->
   <ion-footer>
     <!-- Logout Option  -->
-    <button ion-button full no-margin color="color1" (click)="logout()">
-      <ion-icon name="send"></ion-icon> Logout
+    <button *ngIf="isAutenticado()" ion-button full no-margin color="color1" (click)="logout()">
+      <ion-icon name="send"></ion-icon> Sair
+    </button>
+    <button *ngIf="!isAutenticado()" ion-button full no-margin color="color1" (click)="entrar()">
+      <ion-icon name="send"></ion-icon> Entrar
     </button>
   </ion-footer>
 </ion-menu>

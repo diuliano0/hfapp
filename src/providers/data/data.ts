@@ -9,6 +9,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {AuthProvider} from "../auth/auth";
 
 @Injectable()
 export class DataProvider {
@@ -20,7 +21,7 @@ export class DataProvider {
    * Side Menu Data
    * ----------------------------------------------------
    */
-  getSideMenus() {
+  getSideMenusAuth() {
     return [
       {title: 'Início', icon: 'home', component: 'AnuncioListPage'},
       /*{
@@ -37,8 +38,18 @@ export class DataProvider {
       { title: 'Contact Us', icon: 'call', component: 'ContactUsPage' },
       { title: 'Language', icon: 'ios-switch', component: 'LanguagePage' },*/
       { title: 'Perfil', icon: 'md-person', component: 'ProfilePage' },
-      { title: 'Meus Anúncios', icon: 'grid', component: 'ProfilePage' },
+      { title: 'Meus Anúncios', icon: 'grid', component: 'ProfilePage'},
       { title: 'Favoritos', icon: 'bookmark', component: 'ProfilePage' },
+    ]
+  }
+  /**
+   * ----------------------------------------------------
+   * Side Menu Data
+   * ----------------------------------------------------
+   */
+  getSideMenus() {
+    return [
+      {title: 'Início', icon: 'home', component: 'AnuncioListPage'},
     ]
   }
 

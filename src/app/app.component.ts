@@ -13,6 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { DataProvider } from '../providers/data/data';
 import {ANUNCIO_ROUTE_LIST} from "../pages/anuncios/conts.conts";
+import {AuthProvider} from "../providers/auth/auth";
 
 @Component({
   templateUrl: 'app.html'
@@ -59,7 +60,7 @@ export class MyApp {
    * You get `DataProvider` Service at - 'src/providers/data/data';
    */
   getSideMenuData() {
-    this.pages = this.dataProvider.getSideMenus();
+    this.pages = (AuthProvider.autenticado())?this.dataProvider.getSideMenusAuth(): this.dataProvider.getSideMenus();
   }
 
   /**
@@ -85,5 +86,12 @@ export class MyApp {
   // Logout
   logout() {
     this.nav.setRoot(ANUNCIO_ROUTE_LIST);
+  }
+  entrar(){
+    this.nav.setRoot('SignInPage');
+  }
+
+  isAutenticado(){
+    return AuthProvider.autenticado();
   }
 }

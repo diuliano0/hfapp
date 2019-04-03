@@ -1,65 +1,63 @@
 <!-- Header  -->
 <ion-header no-border>
-    <header-one title="Filtro"></header-one>
+  <header-one title="Filtro"></header-one>
 </ion-header>
 
 <!-- Content  -->
 <ion-content padding>
-    <div class="container">
-        <!-- Sign Up Form  -->
-        <div class="form-content">
-            <form class="animated slideInUp"
-                  [formGroup]="pesquisaForm"
-                  (submit)="pesquisar(pesquisaForm.value)">
-                <ion-list>
-                    <ion-item>
-                        <ion-input type="text"
-                                   placeholder="Titulo"
-                                   name="anuncio.anuncios.titulo"
-                                   formControlName="anuncio.anuncios.titulo"
-                                   [class.invalid]="!pesquisaForm.controls['anuncio.anuncios.titulo'].valid && pesquisaForm.controls['anuncio.anuncios.titulo'].dirty"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Categoria</ion-label>
-                        <ionic-selectable *ngIf="categorias?.data"
-                                          item-content
-                                          formControlName="anuncio.anuncios.categoria_id"
-                                          [items]="categorias.data"
-                                          itemValueField="id"
-                                          itemTextField="descricao"
-                                          [canSearch]="true">
-                        </ionic-selectable>
-                    </ion-item>
-                    <ion-item>
-                        <input type="text"
-                               placeholder="Valor de"
-                               [(ngModel)]="zone"
-                               currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
-                               class="text-input text-input-ios"
-                               style="width: 48%;"
-                               formControlName="anuncio.anuncios.valor_de"
-                               [class.invalid]="!pesquisaForm.controls['anuncio.anuncios.valor_de'].valid && pesquisaForm.controls['anuncio.anuncios.valor_de'].dirty"/>
-                        <input type="text"
-                               placeholder="Até "
-                               [(ngModel)]="zone"
-                               style="width: 48%;"
-                               currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
-                               class="text-input text-input-ios"
-                               formControlName="anuncio.anuncios.valor_ate"
-                               [class.invalid]="!pesquisaForm.controls['anuncio.anuncios.valor_ate'].valid && pesquisaForm.controls['anuncio.anuncios.valor_ate'].dirty"/>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Oque deseja?</ion-label>
-                        <ion-select formControlName="anuncio.anuncios.tipo">
-                            <ion-option [value]="0">Comprar</ion-option>
-                            <ion-option [value]="1">Vender</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </ion-list>
-                <button ion-button round block type="submit" class="custom-btn">
-                    Pesquisar
-                </button>
-            </form>
-        </div>
+  <div class="container">
+    <!-- Sign Up Form  -->
+    <div class="form-content">
+      <form class="animated slideInUp"
+            [formGroup]="pesquisaForm"
+            (submit)="pesquisar(pesquisaForm.value)">
+        <ion-list>
+          <ion-item>
+            <ion-label>Oque deseja?</ion-label>
+            <ion-select formControlName="anuncio.anuncios.tipo">
+              <ion-option [value]="0">Comprar</ion-option>
+              <ion-option [value]="1">Vender</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text"
+                       placeholder="Qual produto?"
+                       name="anuncio.anuncios.titulo"
+                       formControlName="anuncio.anuncios.titulo"
+                       [class.invalid]="!pesquisaForm.controls['anuncio.anuncios.titulo'].valid && pesquisaForm.controls['anuncio.anuncios.titulo'].dirty"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Categoria</ion-label>
+            <ionic-selectable *ngIf="categorias?.data"
+                              item-content
+                              formControlName="anuncio.anuncios.categoria_id"
+                              [items]="categorias.data"
+                              itemValueField="id"
+                              itemTextField="descricao"
+                              [canSearch]="true">
+            </ionic-selectable>
+          </ion-item>
+          <ion-item>
+            <input type="text"
+                   placeholder="Valor de"
+                   currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                   class="text-input text-input-ios"
+                   style="width: 48%;"
+                   formControlName="anuncio.anuncios.valor_de"
+                   [class.invalid]="!pesquisaForm.controls['anuncio.anuncios.valor_de'].valid && pesquisaForm.controls['anuncio.anuncios.valor_de'].dirty"/>
+            <input type="text"
+                   placeholder="Até "
+                   style="width: 48%;"
+                   currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                   class="text-input text-input-ios"
+                   formControlName="anuncio.anuncios.valor_ate"
+                   [class.invalid]="!pesquisaForm.controls['anuncio.anuncios.valor_ate'].valid && pesquisaForm.controls['anuncio.anuncios.valor_ate'].dirty"/>
+          </ion-item>
+        </ion-list>
+        <button ion-button round block type="submit" class="custom-btn">
+          Pesquisar
+        </button>
+      </form>
     </div>
+  </div>
 </ion-content>

@@ -34,6 +34,10 @@ export class Util {
         return new Date(date.getTime() + (days * 86400000));
     }
 
+    static isNullOrUndefined(value){
+        return (value === null || value === undefined);
+    }
+
     public criarAlert(title, subTitle, buttons) {
         let alert = this.alerta.create({
             title: title,
