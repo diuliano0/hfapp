@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {
-    IonicPage, ModalController, NavController, NavParams,
+    IonicPage, MenuController, ModalController, NavController, NavParams,
     ViewController
 } from 'ionic-angular';
 import {DataProvider} from "../../../providers/data/data";
@@ -40,7 +40,9 @@ export class AnuncioListPage {
                 public util: Util,
                 public viewCtrl: ViewController,
                 public modalCtrl: ModalController,
-                public dataProvider: DataProvider) {
+                public dataProvider: DataProvider,
+                public menuCtrl: MenuController) {
+        this.menuCtrl.enable(true);
 
     }
 

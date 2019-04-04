@@ -76,5 +76,6 @@ export class AuthProvider {
 
     static deslogar(){
         window.localStorage.removeItem('token');
+        window.localStorage.removeItem('usuario');
     }
 }

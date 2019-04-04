@@ -46,7 +46,6 @@ export class MyApp {
 
         // Get List of Side Menu Data
         this.getSideMenuData();
-        this.anunciante = AuthProvider.getUser();
     }
 
     initializeApp() {
@@ -89,7 +88,7 @@ export class MyApp {
     // Logout
     logout() {
         AuthProvider.deslogar();
-        this.pages = (AuthProvider.autenticado()) ? this.dataProvider.getSideMenusAuth() : this.dataProvider.getSideMenus();
+        this.getSideMenuData();
         this.nav.setRoot(ANUNCIO_ROUTE_LIST);
     }
 
@@ -98,6 +97,8 @@ export class MyApp {
     }
 
     isAutenticado() {
+        this.anunciante = AuthProvider.getUser();
+        this.getSideMenuData();
         return AuthProvider.autenticado();
     }
 }

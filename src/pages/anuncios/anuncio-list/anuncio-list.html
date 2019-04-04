@@ -9,6 +9,9 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div>
+    <div *ngIf="items?.data?.length == 0">
+        <img height="200px" class="empty-list">
+    </div>
     <!-- List of Hotels  -->
     <ion-list no-lines no-margin *ngFor="let item of items?.data" (tap)="viewDetails(item)">
       <ion-item class="animated fadeInLeft">

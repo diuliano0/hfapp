@@ -52,7 +52,8 @@ export class AnuncioDetailPage {
     }
 
     chamar() {
-        this.callNumber.callNumber(this.anuncioDetalhe.anunciante.data.telefone_anunciante, true)
+        //this.anuncioDetalhe.anunciante.data.telefone_anunciante
+        this.callNumber.callNumber('063992348338', true)
             .then(res => console.log('Launched dialer!', res))
             .catch(err => console.log('Error launching dialer', err));
     }
