@@ -39,7 +39,7 @@ export class SignInPage {
               public anuncianteProvider: AnuncianteProvider,
               public navParams: NavParams,
     public menuCtrl: MenuController) {
-    this.menuCtrl.enable(false); // Disable SideMenu
+    this.menuCtrl.enable(false);
   }
 
   /** Do any initialization */

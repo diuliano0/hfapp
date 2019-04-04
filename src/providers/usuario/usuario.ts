@@ -24,4 +24,15 @@ export class UsuarioProvider {
     );
   }
 
+  alterarSenha(data, params: any = {}, headers: HttpHeaders = null): Observable<any> {
+    return this.http.put(this.ressourceUrl + '/password/change', data, {
+      params: params,
+      headers: headers
+    }).pipe(
+        map((response: any) => {
+          return response;
+        })
+    );
+  }
+
 }
