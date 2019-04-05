@@ -79,10 +79,10 @@ export class SignUpPage {
             let pessoa = {
                 nome: value.nome,
                 email: value.email,
-                telefone: [{
+                telefones: [{
                     ddd: telefone[0],
                     numero: telefone[1],
-                    tipo: 0,
+                    tipo_telefone: 1,
                 }]
             };
 

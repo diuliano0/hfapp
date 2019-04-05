@@ -52,10 +52,10 @@ export class UserInformationComponent {
       let pessoa = {
         nome: value.nome,
         email: value.email,
-        telefone: [{
+        telefones: [{
           ddd: telefone[0],
           numero: telefone[1],
-          tipo: 0,
+          tipo_telefone: 1,
         }]
       };
 
@@ -67,8 +67,8 @@ export class UserInformationComponent {
         status: 1
       }).subscribe(res => {
         AuthProvider.setUser(res);
-        this.util.criarAlert('Sucesso!', 'Conta criada com sucesso', 'ok');
-        this.navCtrl.setRoot('SignInPage');
+        this.anunciante = res;
+        this.util.criarAlert('Sucesso!', 'Conta atualizada com sucesso', 'ok');
       });
 
     }

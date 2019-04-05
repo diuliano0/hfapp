@@ -1,16 +1,10 @@
 <!-- Header  -->
 <ion-header no-border>
-  <header-one title="Meus Anúncios"></header-one>
+  <header-one title="Meus Favoritos"></header-one>
 </ion-header>
 
 <!-- Content  -->
 <ion-content padding>
-  <!-- Hotel Location Map Icon  -->
-  <ion-fab bottom right edge>
-    <button ion-fab color="danger">
-      <ion-icon name="ios-add"></ion-icon>
-    </button>
-  </ion-fab>
   <ion-refresher (ionRefresh)=" procedimentoRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -26,8 +20,8 @@
 
         <!-- Hotel Image -->
         <ion-thumbnail item-start>
-          <img  *ngIf="(item.anexo.data.length > 0)" [src]="item.anexo.data[0].url_thumb">
-          <img  *ngIf="!(item.anexo.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
+          <img  *ngIf="(item?.anexo?.data.length > 0)" src="{{item?.anexo?.data[0]?.url_thumb}}">
+          <img  *ngIf="!(item?.anexo?.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
         </ion-thumbnail>
 
         <!-- Name of Hotel -->

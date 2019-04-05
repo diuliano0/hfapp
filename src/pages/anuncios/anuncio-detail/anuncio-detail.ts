@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {DataProvider} from "../../../providers/data/data";
 import {CallNumber} from '@ionic-native/call-number/ngx';
+import {AnuncianteProvider} from "../../../providers/anunciante/anunciante";
+import {Util} from "../../../providers/base/util";
 
 /**
  * Generated class for the AnuncioDetailPage page.
@@ -15,7 +17,9 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
     selector: 'page-anuncio-detail',
     templateUrl: './anuncio-detail.html',
     providers:[
-        CallNumber
+        CallNumber,
+        Util,
+        AnuncianteProvider
     ]
 })
 export class AnuncioDetailPage {
@@ -33,6 +37,8 @@ export class AnuncioDetailPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private callNumber: CallNumber,
+                private util: Util,
+                private anuncianteProvider: AnuncianteProvider,
                 public viewCtrl: ViewController,
                 public modalCtrl: ModalController,
                 public dataProvider: DataProvider) {
@@ -52,11 +58,13 @@ export class AnuncioDetailPage {
     }
 
     chamar() {
-        //this.anuncioDetalhe.anunciante.data.telefone_anunciante
-        this.callNumber.callNumber('063992348338', true)
-            .then(res => console.log('Launched dialer!', res))
-            .catch(err => console.log('Error launching dialer', err));
+        window.open(`tel:${this.anuncioDetalhe.anunciante.data.telefone_anunciante}`, '_system');
     }
 
+    favoritar(id){
+          this.anuncianteProvider.favoritar(id).subscribe(res => {
+              this.util.criarAlert('Sucesso!', 'Anúncio Favoritado', 'ok');
+          });
+    }
 
 }

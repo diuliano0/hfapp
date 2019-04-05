@@ -14,7 +14,7 @@
     </ion-fab>
     <!-- Hotel Location Map Icon  -->
     <ion-fab top left edge>
-        <button ion-fab color="danger" (tap)="openLocationMap()">
+        <button ion-fab color="white" (tap)="favoritar(anuncioDetalhe.id)">
             <ion-icon name="ios-heart"></ion-icon>
         </button>
     </ion-fab>
@@ -42,12 +42,12 @@
         </ion-slide>
     </ion-slides>
     <div *ngIf="!(anuncioDetalhe?.anexo?.data.length > 0)" class="car-image">
-        <img src="../../../assets/imgs/sem_imagem.jpg" imageViewer>
+        <img src="assets/imgs/sem_imagem.jpg" imageViewer>
     </div>
     <section class="details-section">
-        <button ion-button large full no-margin class="custom-btn">
+        <!--<button ion-button large full no-margin class="custom-btn">
           Iniciar Conversa
-        </button>
+        </button>-->
         <div class="price-section">
             <ion-item text-left no-lines class="price">
                 VALOR

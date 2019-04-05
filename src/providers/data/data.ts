@@ -39,7 +39,7 @@ export class DataProvider {
       { title: 'Language', icon: 'ios-switch', component: 'LanguagePage' },*/
       { title: 'Perfil', icon: 'md-person', component: 'ProfilePage' },
       { title: 'Meus Anúncios', icon: 'grid', component: 'MeusAnunciosPage'},
-      { title: 'Favoritos', icon: 'bookmark', component: 'ProfilePage' },
+      { title: 'Favoritos', icon: 'bookmark', component: 'AnunciosFavoritosPage' },
       { title: 'Minhas Conversas', icon: 'chatboxes', component: 'ProfilePage' },
       {title: 'Sobre', icon: 'clipboard', component: 'AnuncioListPage'},
     ]

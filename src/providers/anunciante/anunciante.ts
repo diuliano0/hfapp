@@ -50,4 +50,15 @@ export class AnuncianteProvider {
         );
     }
 
+    favoritar(id, params: any = {}, headers: HttpHeaders = null): Observable<any> {
+        return this.http.get(this.ressourceUrl + `/favoritar/${id}`, {
+            params: params,
+            headers: headers
+        }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
 }
