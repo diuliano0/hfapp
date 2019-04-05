@@ -28,6 +28,17 @@ export class AnuncianteProvider {
         );
     }
 
+    update(data, params: any = {}, headers: HttpHeaders = null) {
+        return this.http.put(this.ressourceUrl, data, {
+            params: params,
+            headers: headers
+        }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
     perfil(params: any = {}, headers: HttpHeaders = null): Observable<any> {
         return this.http.get(this.ressourceUrl + '/perfil', {
             params: params,

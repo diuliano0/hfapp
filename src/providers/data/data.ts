@@ -40,6 +40,8 @@ export class DataProvider {
       { title: 'Perfil', icon: 'md-person', component: 'ProfilePage' },
       { title: 'Meus Anúncios', icon: 'grid', component: 'MeusAnunciosPage'},
       { title: 'Favoritos', icon: 'bookmark', component: 'ProfilePage' },
+      { title: 'Minhas Conversas', icon: 'chatboxes', component: 'ProfilePage' },
+      {title: 'Sobre', icon: 'clipboard', component: 'AnuncioListPage'},
     ]
   }
   /**
@@ -50,6 +52,7 @@ export class DataProvider {
   getSideMenus() {
     return [
       {title: 'Início', icon: 'home', component: 'AnuncioListPage'},
+      {title: 'Sobre', icon: 'clipboard', component: 'AnuncioListPage'},
     ]
   }
 

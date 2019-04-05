@@ -12,6 +12,12 @@
             <ion-icon name="ios-pin-outline"></ion-icon>
         </button>
     </ion-fab>
+    <!-- Hotel Location Map Icon  -->
+    <ion-fab top left edge>
+        <button ion-fab color="danger" (tap)="openLocationMap()">
+            <ion-icon name="ios-heart"></ion-icon>
+        </button>
+    </ion-fab>
 
     <!-- Image Slider of Hotel  -->
     <ion-slides *ngIf="(anuncioDetalhe?.anexo?.data.length > 0)" slidesPerView="1" pager loop="true" effect="slide" autoplay="5000" class="image-slider"

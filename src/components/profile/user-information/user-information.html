@@ -1,34 +1,56 @@
 <div class="container">
-  <form class="animated zoomIn contents">
+  <form class="animated zoomIn contents" [formGroup]="registrationForm"
+        (submit)="alterarDados(registrationForm.value)">
     <ion-list>
 
       <!-- Full Name -->
       <ion-item>
         <ion-label stacked color="color2">Nome Completo</ion-label>
-        <ion-input type="text" placeholder="Nome Completo"></ion-input>
+        <ion-input type="text" formControlName="nome" placeholder="Nome Completo"
+
+                   [class.invalid]="!registrationForm.controls.nome.valid && registrationForm.controls.nome.dirty"></ion-input>
       </ion-item>
+      <!-- Name Validation Message  -->
+      <div class="error-message" *ngIf="!registrationForm.controls.nome.valid  && registrationForm.controls.nome.dirty">
+        <p>Nome é obrigatório.</p>
+      </div>
 
       <!-- Email Address -->
       <ion-item>
         <ion-label stacked color="color2">Email</ion-label>
-        <ion-input type="text" placeholder="Email Address"></ion-input>
+        <ion-input type="text" formControlName="email" readonly placeholder="Email Address"
+                   [class.invalid]="!registrationForm.controls.email.valid && registrationForm.controls.email.dirty"></ion-input>
       </ion-item>
+      <!-- Email Validation Message  -->
+      <div class="error-message"
+           *ngIf="!registrationForm.controls.email.valid  && registrationForm.controls.email.dirty">
+        <p>Insira um email válido.</p>
+      </div>
 
       <!-- Phone Number -->
       <ion-item>
         <ion-label stacked color="color2">Telefone</ion-label>
-        <ion-input type="text" placeholder="Phone Number"></ion-input>
+        <ion-input type="text"
+                   formControlName="telefone"
+                   autocomplete="off"
+                   (keypress)="phoneMask(registrationForm.controls.telefone.value, $event.target)"
+                   [class.invalid]="!registrationForm.controls.telefone.valid && registrationForm.controls.telefone.dirty"></ion-input>
       </ion-item>
+      <!-- Name Validation Message  -->
+      <div class="error-message"
+           *ngIf="!registrationForm.controls.telefone.valid  && registrationForm.controls.telefone.dirty">
+        <p>Telefone e obrigatório.</p>
+      </div>
 
       <!-- Address -->
-      <ion-item>
+     <!-- <ion-item>
         <ion-label stacked color="color2">Endereço</ion-label>
         <ion-input type="text" placeholder="Endereço"></ion-input>
-      </ion-item>
+      </ion-item>-->
     </ion-list>
 
     <ion-row justify-content-center align-items-center>
-      <button ion-button block type="button" color="color2">
+      <button ion-button block type="submit" color="color2">
           Atualizar
       </button>
     </ion-row>
