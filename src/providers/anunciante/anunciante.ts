@@ -39,6 +39,17 @@ export class AnuncianteProvider {
         );
     }
 
+    mudarImagem(data, params: any = {}, headers: HttpHeaders = null) {
+        return this.http.post(this.ressourceUrl+'/mudar-imagem', data, {
+            params: params,
+            headers: headers
+        }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
     perfil(params: any = {}, headers: HttpHeaders = null): Observable<any> {
         return this.http.get(this.ressourceUrl + '/perfil', {
             params: params,
@@ -52,6 +63,16 @@ export class AnuncianteProvider {
 
     favoritar(id, params: any = {}, headers: HttpHeaders = null): Observable<any> {
         return this.http.get(this.ressourceUrl + `/favoritar/${id}`, {
+            params: params,
+            headers: headers
+        }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+    desfavoritar(id, params: any = {}, headers: HttpHeaders = null): Observable<any> {
+        return this.http.get(this.ressourceUrl + `/desfavoritar/${id}`, {
             params: params,
             headers: headers
         }).pipe(

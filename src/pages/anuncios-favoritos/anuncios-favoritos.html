@@ -1,52 +1,55 @@
 <!-- Header  -->
 <ion-header no-border>
-  <header-one title="Meus Favoritos"></header-one>
+    <header-one title="Meus Favoritos"></header-one>
 </ion-header>
 
 <!-- Content  -->
-<ion-content padding>
-  <ion-refresher (ionRefresh)=" procedimentoRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <div>
+<ion-content padding class="action-sheets-basic-page">
+    <ion-refresher (ionRefresh)=" procedimentoRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
 
     <div *ngIf="items?.data?.length == 0">
-      <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
+        <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
     </div>
     <!-- List of Hotels  -->
-    <ion-list no-lines no-margin *ngFor="let item of items?.data" (tap)="viewDetails(item)">
-      <ion-item class="animated fadeInLeft">
+    <ion-list no-lines no-margin>
+        <ion-item-sliding *ngFor="let item of items?.data" >
+            <ion-item (press)="abrirOpcoes(item)" (tap)="viewDetails(item)">
 
-        <!-- Hotel Image -->
-        <ion-thumbnail item-start>
-          <img  *ngIf="(item?.anexo?.data.length > 0)" src="{{item?.anexo?.data[0]?.url_thumb}}">
-          <img  *ngIf="!(item?.anexo?.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
-        </ion-thumbnail>
+                <!-- Hotel Image -->
+                <ion-thumbnail item-start>
+                    <img *ngIf="(item?.anexo?.data.length > 0)" src="{{item?.anexo?.data[0]?.url_thumb}}">
+                    <img *ngIf="!(item?.anexo?.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
+                </ion-thumbnail>
 
-        <!-- Name of Hotel -->
-        <p text-wrap class="name">{{item?.titulo }}</p>
+                <!-- Name of Hotel -->
+                <p text-wrap class="name">{{item?.titulo }}</p>
 
-        <!-- Hotel Review and Type  -->
-        <!--<p class="reviews">{{item.quantidade}} Reviews | {{hotel.type}} hotel</p>-->
-        <p class="reviews">Publicado: {{item?.created_at.date|date:'dd MMMM HH:mm'}}</p>
-        <p class="reviews" *ngIf="(item.enderecos.data.length > 0)">{{item.enderecos.data[0].cidade_nome}} - {{item.enderecos.data[0].estado_uf}}</p>
+                <!-- Hotel Review and Type  -->
+                <!--<p class="reviews">{{item.quantidade}} Reviews | {{hotel.type}} hotel</p>-->
+                <p class="reviews">Publicado: {{item?.created_at.date|date:'dd MMMM HH:mm'}}</p>
+                <p class="reviews" *ngIf="(item.enderecos.data.length > 0)">{{item.enderecos.data[0].cidade_nome}} -
+                    {{item.enderecos.data[0].estado_uf}}</p>
+                <ion-item style="background: transparent" no-padding>
 
-        <ion-item style="background: transparent" no-padding>
+                    <!-- Hotel Ratings  -->
+                    <!--<rating [(ngModel)]="hotel.star" readOnly="false" max="{{hotel.star}}" emptyStarIconName="ios-star-outline" halfStarIconName="star-half"
+                            starIconName="ios-star" nullable="true">
+                    </rating>-->
 
-          <!-- Hotel Ratings  -->
-          <!--<rating [(ngModel)]="hotel.star" readOnly="false" max="{{hotel.star}}" emptyStarIconName="ios-star-outline" halfStarIconName="star-half"
-                  starIconName="ios-star" nullable="true">
-          </rating>-->
-
-          <!-- Price  -->
-          <ion-badge item-end>R${{item?.valor}}</ion-badge>
-          <ion-badge *ngIf="(item?.quantidade > 0)" item-end>Qtd: {{item?.quantidade}}</ion-badge>
-        </ion-item>
-      </ion-item>
+                    <!-- Price  -->
+                    <ion-badge item-end>R${{item?.valor}}</ion-badge>
+                    <ion-badge *ngIf="(item?.quantidade > 0)" item-end>Qtd: {{item?.quantidade}}</ion-badge>
+                </ion-item>
+            </ion-item>
+            <ion-item-options>
+                <button ion-button color="danger" (tap)="remover(item)"> Remover</button>
+            </ion-item-options>
+        </ion-item-sliding>
     </ion-list>
-  </div>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

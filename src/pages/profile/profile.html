@@ -19,13 +19,13 @@
 
     <!-- Photo Change Edit Button  -->
     <ion-fab top>
-      <button ion-fab mini icon-only color="color1">
+      <button ion-fab mini icon-only color="color1" (tap)="abrirOpcoes()">
         <ion-icon name="md-create"></ion-icon>
       </button>
     </ion-fab>
 
     <!-- Image Preview  -->
-    <img src="assets/imgs/avatar.png">
+    <img src="{{imageUrl}}">
   </div>
 
   <!-- User Profile Settings Options  -->
