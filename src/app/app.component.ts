@@ -33,6 +33,8 @@ export class MyApp {
     // Selected Side Menu
     selectedMenu: any;
 
+    imageUrl = 'assets/imgs/avatar.png';
+
     constructor(public platform: Platform,
                 public statusBar: StatusBar,
                 public splashScreen: SplashScreen,
@@ -44,6 +46,11 @@ export class MyApp {
         // Set Default Language
         translateService.setDefaultLang('pt');
 
+        this.anunciante = AuthProvider.getUser();
+
+        if(this.anunciante.data.hasOwnProperty('anexo')){
+          this.imageUrl = this.anunciante.data.anexo.data.url;
+        }
         // Get List of Side Menu Data
         this.getSideMenuData();
     }
