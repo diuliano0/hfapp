@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {DataProvider} from "../../../providers/data/data";
-import {CallNumber} from '@ionic-native/call-number/ngx';
 import {AnuncianteProvider} from "../../../providers/anunciante/anunciante";
 import {Util} from "../../../providers/base/util";
+import {CallNumber} from "@ionic-native/call-number";
 
 /**
  * Generated class for the AnuncioDetailPage page.

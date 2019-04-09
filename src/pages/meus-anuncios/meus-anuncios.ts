@@ -112,5 +112,7 @@ export class MeusAnunciosPage {
       infiniteScroll.complete();
     }
   }
-
+  openAnunciar(){
+    this.navCtrl.setRoot('AnuncioCreatePage');
+  }
 }

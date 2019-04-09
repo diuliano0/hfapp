@@ -1,0 +1,109 @@
+<!-- Header  -->
+<ion-header no-border>
+  <ion-navbar no-border>
+
+    <!-- Back Button  -->
+    <ion-buttons start>
+      <button ion-button color="white" clear (tap)="dismiss()">
+        <ion-icon name="arrow-back" style="zoom:2.0;"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <!-- Page Title  -->
+    <ion-title>Anunciar</ion-title>
+    <!-- Buttons  -->
+    <ion-buttons end>
+      <button [disabled]=" ! checkPhotoEnabled()" *ngIf=" ! checkedReadPublished" (click)="create()" ion-button
+              icon-only>
+        Criar
+      </button>
+      <button [disabled]=" ! checkedPayment " *ngIf="checkedReadPublished" (click)="create()" ion-button icon-only>
+        Publicar
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<!-- Content  -->
+<ion-content>
+  <ion-list>
+    <ion-item (click)="segueToPropertyBasicPage()" class="my-item">
+      <div [ngClass]="{'icon-arround': ! checkedBasic, 'icon-arround-disabled': checkedBasic}" item-start>
+        <ion-icon color="textProperty" name="cash" item-start></ion-icon>
+      </div>
+      <p [ngClass]="{'property-title': ! checkedBasic, 'property-title-disabled': checkedBasic}" color="textProperty">
+        Dados básicos</p>
+      <p [ngClass]="{'property-sub-title': ! checkedBasic, 'property-sub-title-disabled': checkedBasic}"
+         color="textPropertySecondary">Tipo de de anuncio, descrição e etc..</p>
+      <ion-icon *ngIf="checkedBasic == false" color="textSecondary" name="checkmark-circle-outline" item-end></ion-icon>
+      <ion-icon *ngIf="checkedBasic == true" color="success" name="checkmark-circle" item-end></ion-icon>
+    </ion-item>
+
+    <ion-item (click)="segueToPropertyLocationPage()" class="my-item">
+      <div [ngClass]="{'icon-arround': ! checkedLocation, 'icon-arround-disabled': checkedLocation}" item-start>
+        <ion-icon color="textProperty" name="pin" item-start></ion-icon>
+      </div>
+      <p [ngClass]="{'property-title': ! checkedLocation, 'property-title-disabled': checkedLocation}"
+         color="textProperty">Localização</p>
+      <p [ngClass]="{'property-sub-title': ! checkedLocation, 'property-sub-title-disabled': checkedLocation}"
+         color="textPropertySecondary">Nome da rua, número, bairro, etc.</p>
+      <ion-icon *ngIf="checkedLocation == false" color="textSecondary" name="checkmark-circle-outline"
+                item-end></ion-icon>
+      <ion-icon *ngIf="checkedLocation == true" color="success" name="checkmark-circle" item-end></ion-icon>
+    </ion-item>
+
+    <!--<ion-item (click)="segueToPropertyInfoPage()" class="my-item">
+      <div [ngClass]="{'icon-arround': ! checkedInfo, 'icon-arround-disabled': checkedInfo}" item-start>
+        <ion-icon color="textProperty" name="list" item-start></ion-icon>
+      </div>
+      <p [ngClass]="{'property-title': ! checkedInfo, 'property-title-disabled': checkedInfo}" color="textProperty">
+        Características obrigatórias</p>
+      <p [ngClass]="{'property-sub-title': ! checkedInfo, 'property-sub-title-disabled': checkedInfo}"
+         color="textPropertySecondary">Nome da rua, número, bairro, etc.</p>
+      <ion-icon *ngIf="checkedInfo == false" color="textSecondary" name="checkmark-circle-outline" item-end></ion-icon>
+      <ion-icon *ngIf="checkedInfo == true" color="success" name="checkmark-circle" item-end></ion-icon>
+    </ion-item>
+
+    <ion-item class="my-item" (click)="segueToPropertyDescriptionPage()">
+      <div [ngClass]="{'icon-arround': ! checkedDescription, 'icon-arround-disabled': checkedDescription}" item-start>
+        <ion-icon color="textProperty" name="list-box" item-start></ion-icon>
+      </div>
+      <p [ngClass]="{'property-title': ! checkedDescription, 'property-title-disabled': checkedDescription}"
+         color="textProperty">Descrição</p>
+      <p [ngClass]="{'property-sub-title': ! checkedDescription, 'property-sub-title-disabled': checkedDescription}"
+         color="textPropertySecondary">Breve texto sobre o imóvel</p>
+      <ion-icon *ngIf="checkedDescription == false" color="textSecondary" name="checkmark-circle-outline"
+                item-end></ion-icon>
+      <ion-icon *ngIf="checkedDescription == true" color="success" name="checkmark-circle" item-end></ion-icon>
+    </ion-item>-->
+
+    <ion-item (click)="segueToPropertyCreatePhotoPage()" class="my-item">
+      <div [ngClass]="{'icon-arround': checkedReadPublished, 'icon-arround-disabled': ! checkedReadPublished}"
+           item-start>
+        <ion-icon text-center color="textProperty" name="camera"></ion-icon>
+      </div>
+      <p [ngClass]="{'property-title': checkedReadPublished, 'property-title-disabled': ! checkedReadPublished}"
+         color="textProperty">Fotos</p>
+      <p [ngClass]="{'property-sub-title': checkedReadPublished, 'property-sub-title-disabled': ! checkedReadPublished}"
+         color="textPropertySecondary">Imagens do Imóvel</p>
+      <ion-icon *ngIf="checkedPhoto == false" color="textSecondary" name="checkmark-circle-outline" item-end></ion-icon>
+      <ion-icon *ngIf="checkedPhoto == true" color="success" name="checkmark-circle" item-end></ion-icon>
+    </ion-item>
+
+    <!--<ion-item (click)="segueToPropertyPaymentPage()" class="my-item">
+      <div [ngClass]="{'icon-arround': checkPhotoEnabled(), 'icon-arround-disabled': ! checkedReadPublished}"
+           item-start>
+        <ion-icon text-center color="textProperty" name="cash"></ion-icon>
+      </div>
+      <p [ngClass]="{'property-title': checkedReadPublished, 'property-title-disabled': ! checkedReadPublished}"
+         color="textProperty">Forma pagamento</p>
+      <p [ngClass]="{'property-sub-title': checkedReadPublished, 'property-sub-title-disabled': ! checkedReadPublished}"
+         color="textPropertySecondary">Assinatura do plano</p>
+      <ion-icon *ngIf="checkedPayment == false" color="textSecondary" name="checkmark-circle-outline"
+                item-end></ion-icon>
+      <ion-icon *ngIf="checkedPayment == true" color="success" name="checkmark-circle" item-end></ion-icon>
+    </ion-item>-->
+
+
+  </ion-list>
+</ion-content>

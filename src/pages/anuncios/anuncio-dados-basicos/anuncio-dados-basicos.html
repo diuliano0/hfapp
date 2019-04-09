@@ -1,0 +1,69 @@
+<!-- Header  -->
+<ion-header no-border>
+    <header-two title="Dados Básicos"></header-two>
+</ion-header>
+
+<!-- Content  -->
+<ion-content padding fullscreen elestic-header>
+    <form class="animated slideInUp"
+          [formGroup]="formDadosBasicos"
+          (submit)="salvar(formDadosBasicos.value)">
+        <ion-list>
+            <ion-item>
+                <input type="text"
+                       placeholder="Titulo"
+                       spellcheck="true"
+                       class="text-input text-input-ios"
+                       name="titulo"
+                       formControlName="titulo"
+                       [class.invalid]="!formDadosBasicos.controls['titulo'].valid && formDadosBasicos.controls['titulo'].dirty"/>
+            </ion-item>
+            <ion-item>
+                <ion-label>Oque deseja?</ion-label>
+                <ion-select formControlName="tipo">
+                    <ion-option [value]="0">Comprar</ion-option>
+                    <ion-option [value]="1">Vender</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Categoria</ion-label>
+                <ionic-selectable *ngIf="categorias?.data"
+                                  item-content
+                                  formControlName="categoria_id"
+                                  [items]="categorias.data"
+                                  itemValueField="id"
+                                  itemTextField="descricao"
+                                  [canSearch]="true">
+                </ionic-selectable>
+            </ion-item>
+            <ion-item>
+                <ion-input type="number"
+                           placeholder="Quantidade"
+                           class="text-input text-input-ios"
+                           name="quantidade"
+                           formControlName="quantidade"
+                           [class.invalid]="!formDadosBasicos.controls['quantidade'].valid && formDadosBasicos.controls['quantidade'].dirty"></ion-input>
+            </ion-item>
+            <ion-item>
+                <input type="text"
+                       placeholder="Valor"
+                       currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                       class="text-input text-input-ios"
+                       formControlName="valor"
+                       [class.invalid]="!formDadosBasicos.controls['valor'].valid && formDadosBasicos.controls['valor'].dirty"/>
+            </ion-item>
+            <ion-item>
+                <ion-textarea
+                        rows="6" cols="20"
+                        placeholder="Descricao"
+                        class="text-input text-input-ios"
+                        name="descricao"
+                        formControlName="descricao"
+                        [class.invalid]="!formDadosBasicos.controls['descricao'].valid && formDadosBasicos.controls['descricao'].dirty"></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <button ion-button round block type="submit" class="custom-btn">
+            Salvar
+        </button>
+    </form>
+</ion-content>

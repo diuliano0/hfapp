@@ -9,7 +9,6 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {AuthProvider} from "../auth/auth";
 
 @Injectable()
 export class DataProvider {
