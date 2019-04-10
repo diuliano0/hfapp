@@ -37,8 +37,8 @@ export class AnuncioCreatePage {
     if (!this.checkedReadPublished) {
       let modal = this.modalCtrl.create('AnuncioDadosBasicosPage', {info: this.immobleModel});
       modal.onDidDismiss(data => {
-        if (data != null && data.info != null) {
-          let result = data.info;
+        if (data != null && data.data != null) {
+          let result = data.data;
           this.checkedBasic = true;
           //this.changeDatatoSave(result)
         }
@@ -49,7 +49,6 @@ export class AnuncioCreatePage {
 
   checkPhotoEnabled(): boolean {
     if (this.checkedBasic
-        && this.checkedDescription
         && this.checkedInfo
         && this.checkedLocation) {
       return true;

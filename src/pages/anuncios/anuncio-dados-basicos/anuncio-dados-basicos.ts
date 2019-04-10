@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoriaProvider} from "../../../providers/categoria/categoria";
+import {Util} from "../../../providers/base/util";
 
 /**
  * Generated class for the AnuncioDadosBasicosPage page.
@@ -26,6 +27,7 @@ export class AnuncioDadosBasicosPage {
 
     constructor(public navCtrl: NavController,
                 public fb: FormBuilder,
+                public viewCtrl: ViewController,
                 private categoriaProvider: CategoriaProvider,
                 public navParams: NavParams) {
     }
@@ -61,7 +63,10 @@ export class AnuncioDadosBasicosPage {
     }*/
     salvar(value){
         if(!this.formDadosBasicos.invalid){
-
+          if (!Util.isNullOrUndefined(value['categoria_id'])) {
+            value['categoria_id'] = this.formDadosBasicos.controls['categoria_id'].value.id;
+          }
+          this.viewCtrl.dismiss({data: value});
         }
     }
 }
