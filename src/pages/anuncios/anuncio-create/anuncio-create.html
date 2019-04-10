@@ -13,11 +13,11 @@
     <ion-title>Anunciar</ion-title>
     <!-- Buttons  -->
     <ion-buttons end>
-      <button [disabled]=" ! checkPhotoEnabled()" *ngIf=" ! checkedReadPublished" (click)="create()" ion-button
+      <button [disabled]=" ! checkPhotoEnabled()" *ngIf=" ! checkedReadPublished" (click)="salvar()" ion-button
               icon-only>
         Criar
       </button>
-      <button [disabled]=" ! checkedPayment " *ngIf="checkedReadPublished" (click)="create()" ion-button icon-only>
+      <button [disabled]=" ! checkedPayment " *ngIf="checkedReadPublished" (click)="salvar()" ion-button icon-only>
         Publicar
       </button>
     </ion-buttons>

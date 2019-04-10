@@ -1,0 +1,6 @@
+<ion-list class="popover-list">
+  <button ion-item *ngFor="let action of actions" class="my-button" (click)="action.callback()">
+    <ion-icon color="primary" name="{{ action.icon }}"></ion-icon>
+    {{action.title}}
+  </button>
+</ion-list>

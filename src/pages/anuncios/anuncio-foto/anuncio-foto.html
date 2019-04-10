@@ -1,0 +1,41 @@
+<!-- Header  -->
+<ion-header no-border>
+  <ion-navbar no-border>
+
+    <!-- Back Button  -->
+    <ion-buttons start>
+      <button ion-button color="white" clear (tap)="dismiss()">
+        <ion-icon name="arrow-back" style="zoom:2.0;"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <!-- Page Title  -->
+    <ion-title>Fotos</ion-title>
+    <!-- Buttons  -->
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon color="camera" name="camera"></ion-icon>
+      </button>
+
+      <button ion-button (click)="salvar('teste')">
+        <span ion-text color="white">Salvar</span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<!-- Content  -->
+<ion-content padding fullscreen elestic-header>
+  <div class="my-grid">
+    <div class="my-item" *ngFor="let photo of photos; let i = index">
+      <img [src]="DomSanitizer.bypassSecurityTrustUrl(photo)" alt="">
+
+      <div class="my-action">
+        <button ion-button color="white" (click)="removeImage(i)" full clear>
+          <ion-icon name="close-circle"></ion-icon>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

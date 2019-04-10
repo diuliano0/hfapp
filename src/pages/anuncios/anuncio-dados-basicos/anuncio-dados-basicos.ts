@@ -46,21 +46,6 @@ export class AnuncioDadosBasicosPage {
         });
     }
 
-    /*filtro(ev) {
-        let text = ev.text;
-        if (text.length == 0) {
-            this.categoriaProvider.listaCategorias().subscribe(res => {
-                this.categorias = res;
-
-            });
-        }
-        if (text.length > 1) {
-            this.categoriaProvider.listaCategorias(text).subscribe(res => {
-                this.categorias = res;
-
-            });
-        }
-    }*/
     salvar(value){
         if(!this.formDadosBasicos.invalid){
           if (!Util.isNullOrUndefined(value['categoria_id'])) {

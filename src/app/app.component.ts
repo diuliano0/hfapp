@@ -14,6 +14,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {DataProvider} from '../providers/data/data';
 import {ANUNCIO_ROUTE_LIST} from "../pages/anuncios/conts.conts";
 import {AuthProvider} from "../providers/auth/auth";
+import {Util} from "../providers/base/util";
 
 @Component({
     templateUrl: 'app.html',
@@ -48,8 +49,9 @@ export class MyApp {
 
         this.anunciante = AuthProvider.getUser();
 
-        if(this.anunciante.data.hasOwnProperty('anexo')){
-          this.imageUrl = this.anunciante.data.anexo.data.url;
+
+        if(!Util.isNullOrUndefined(this.anunciante)){
+            this.imageUrl = this.anunciante.data.anexo.data.url;
         }
         // Get List of Side Menu Data
         this.getSideMenuData();

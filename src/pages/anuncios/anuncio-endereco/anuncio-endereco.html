@@ -1,0 +1,66 @@
+<!-- Header  -->
+<ion-header no-border>
+    <header-four title="Endereço"></header-four>
+</ion-header>
+
+<!-- Content  -->
+<ion-content padding fullscreen elestic-header>
+    <form class="animated slideInUp"
+          [formGroup]="enderecoForm"
+          (submit)="salvar(enderecoForm.value)">
+        <ion-list>
+            <ion-item>
+                <input type="text"
+                       placeholder="CEP"
+                       class="text-input text-input-ios"
+                       name="cep"
+                       formControlName="cep"
+                       (blur)="localizaCep()"
+                       [textMask]="{mask: cepMask}"
+                       [class.invalid]="!enderecoForm.controls['cep'].valid && enderecoForm.controls['cep'].dirty"/>
+            </ion-item>
+            <ion-item>
+                <ion-input type="text"
+                           placeholder="Cidade"
+                           class="text-input text-input-ios"
+                           name="cidade_nome"
+                           readonly
+                           formControlName="cidade_nome"
+                           [class.invalid]="!enderecoForm.controls['cidade_nome'].valid && enderecoForm.controls['cidade_nome'].dirty"></ion-input>
+
+                <ion-input type="text"
+                           placeholder="Estado"
+                           class="text-input text-input-ios"
+                           name="estado_nome"
+                           readonly
+                           formControlName="estado_nome"
+                           [class.invalid]="!enderecoForm.controls['estado_nome'].valid && enderecoForm.controls['estado_nome'].dirty"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="text"
+                           placeholder="Logradouro"
+                           class="text-input text-input-ios"
+                           name="logradouro"
+                           formControlName="logradouro"
+                           [class.invalid]="!enderecoForm.controls['logradouro'].valid && enderecoForm.controls['logradouro'].dirty"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="text"
+                           placeholder="Número"
+                           class="text-input text-input-ios"
+                           name="numero"
+                           formControlName="numero"
+                           [class.invalid]="!enderecoForm.controls['numero'].valid && enderecoForm.controls['numero'].dirty"></ion-input>
+                <ion-input type="text"
+                           placeholder="Complemento"
+                           class="text-input text-input-ios"
+                           name="complemento"
+                           formControlName="complemento"
+                           [class.invalid]="!enderecoForm.controls['complemento'].valid && enderecoForm.controls['complemento'].dirty"></ion-input>
+            </ion-item>
+        </ion-list>
+        <button ion-button round block type="submit" class="custom-btn">
+            Salvar
+        </button>
+    </form>
+</ion-content>

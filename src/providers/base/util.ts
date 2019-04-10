@@ -12,6 +12,26 @@ export class Util {
                 public loadingCtrl: LoadingController) {
     }
 
+    static cepMasc() {
+        return [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+    }
+
+    static dataMasc() {
+        return [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+    }
+
+    static cpfMasc() {
+        return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+    }
+
+    static cnpjMasc() {
+        return [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+    }
+
+    static dddMasc() {
+        return ['(', /[1-9]/, /[1-9]/, ')'];
+    }
+
     static dateFrom(string): any {
         return new Date(string);
     }

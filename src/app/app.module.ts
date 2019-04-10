@@ -22,6 +22,7 @@ import {AnuncioProvider} from '../providers/anuncio/anuncio';
 import {AnuncianteProvider} from '../providers/anunciante/anunciante';
 import {CategoriaProvider} from '../providers/categoria/categoria';
 import {IonicSelectableModule} from "ionic-selectable";
+import {EnderecoProvider} from '../providers/endereco/endereco';
 
 registerLocaleData(ptBr);
 // By default TranslateLoader will look for translation json files in i18n/
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AnuncioProvider,
         AnuncianteProvider,
         CategoriaProvider,
+        EnderecoProvider,
     ]
 })
 export class AppModule {
