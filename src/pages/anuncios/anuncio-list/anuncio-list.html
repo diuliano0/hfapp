@@ -8,7 +8,6 @@
   <ion-refresher (ionRefresh)=" procedimentoRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div>
     <div *ngIf="items?.data?.length == 0">
         <img src="assets/imgs/ic_empty_list.svg"  height="200px" class="empty-list">
     </div>
@@ -43,8 +42,7 @@
         </ion-item>
       </ion-item>
     </ion-list>
-  </div>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

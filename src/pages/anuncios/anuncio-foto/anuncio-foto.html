@@ -3,7 +3,7 @@
   <ion-navbar no-border>
 
     <!-- Back Button  -->
-    <ion-buttons start>
+    <ion-buttons start class="start">
       <button ion-button color="white" clear (tap)="dismiss()">
         <ion-icon name="arrow-back" style="zoom:2.0;"></ion-icon>
       </button>
@@ -17,7 +17,7 @@
         <ion-icon color="camera" name="camera"></ion-icon>
       </button>
 
-      <button ion-button (click)="salvar('teste')">
+      <button ion-button (click)="salvar()">
         <span ion-text color="white">Salvar</span>
       </button>
     </ion-buttons>

@@ -92,14 +92,13 @@ export class MeusAnunciosPage {
   }
 
   doInfinite(infiniteScroll) {
-
     if (this._nextPage != null) {
 
       this._requestNextPageBusca = this.anuncio.nextPage(this._nextPage)
           .subscribe(items => {
 
             for (let i of items.data) {
-              this.items.push(i);
+              this.items.data.push(i);
             }
 
             this._nextPage = items.meta.pagination.links.next;
@@ -112,7 +111,41 @@ export class MeusAnunciosPage {
       infiniteScroll.complete();
     }
   }
+
   openAnunciar(){
     this.navCtrl.setRoot('AnuncioCreatePage');
   }
+
+  editar(item){
+
+  }
+
+  abrirOpcoes(item) {
+    this.util.criarActionSheet('Ações', [
+      {
+        text: 'Remover',
+        icon: 'ios-close-circle-outline',
+        cssClass: 'yellow-color',
+        handler: () => {
+
+        }
+      },
+      {
+        text: 'Voltar',
+        icon: 'ios-undo-outline',
+        handler: () => {
+
+        }
+      }
+    ]);
+  }
+
+  editarFotos(item){
+    let modal = this.modalCtrl.create('AnuncioFotoPage', {info: item});
+    modal.onDidDismiss(data => {
+      this.getHotelList();
+    });
+    modal.present();
+  }
+
 }

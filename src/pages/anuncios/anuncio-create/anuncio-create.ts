@@ -88,6 +88,11 @@ export class AnuncioCreatePage {
     }
   }
 
+  publicar() {
+    this.checkedReadPublished = true
+    this.dismiss();
+  }
+
   segueToPropertyCreatePhotoPage() {
     if (this.checkedReadPublished) {
       let modal = this.modalCtrl.create('AnuncioFotoPage', {info: this.anuncio});

@@ -1,13 +1,21 @@
 page-anuncio-create {
-  button.disable-hover.bar-button.bar-button-ios.bar-button-default.bar-button-default-ios {
-    color: #fff;
+  .bar-button {
+    color: #fff !important;
+  }
+  .start {
+    -webkit-box-ordinal-group: 5;
+    -webkit-order: 1 !important;
+    -ms-flex-order: 1 !important;
+    order: 1 !important;
   }
   .toolbar-background {
-    background: linear-gradient(to right bottom, color($colors, color1), color($colors, color2));
+    background: -webkit-gradient(linear, left top, right bottom, from(#005C97), to(#363795));
+    background: linear-gradient(to right bottom, #005C97, #363795);
     border: none;
   }
   .toolbar-title {
     color: #fff !important;
+    text-align: center;
   }
   .my-item {
     padding: 2% 2% 0% 2%;

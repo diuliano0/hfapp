@@ -52,7 +52,7 @@ export class AnuncioProvider {
     }
 
     updaloadImage(id, data, params: any = {}, headers: HttpHeaders = null) {
-        return this.http.post(this.ressourceUrl / +'/salvar-imagem/' + id, data, {
+        return this.http.post(this.ressourceUrl +'/salvar-imagem/' + id, data, {
             params: params,
             headers: headers
         }).pipe(

@@ -3,7 +3,7 @@
   <ion-navbar no-border>
 
     <!-- Back Button  -->
-    <ion-buttons start>
+    <ion-buttons start class="start">
       <button ion-button color="white" clear (tap)="dismiss()">
         <ion-icon name="arrow-back" style="zoom:2.0;"></ion-icon>
       </button>
@@ -12,12 +12,11 @@
     <!-- Page Title  -->
     <ion-title>Anunciar</ion-title>
     <!-- Buttons  -->
-    <ion-buttons end>
-      <button [disabled]=" ! checkPhotoEnabled()" *ngIf=" ! checkedReadPublished" (click)="salvar()" ion-button
-              icon-only>
+    <ion-buttons end >
+      <button clear [disabled]=" ! checkPhotoEnabled()" *ngIf=" ! checkedReadPublished" (click)="salvar()" ion-button>
         Criar
       </button>
-      <button [disabled]=" ! checkedPayment " *ngIf="checkedReadPublished" (click)="salvar()" ion-button icon-only>
+      <button clear *ngIf="checkedReadPublished" (click)="publicar()" ion-button>
         Publicar
       </button>
     </ion-buttons>
@@ -32,7 +31,7 @@
         <ion-icon color="textProperty" name="cash" item-start></ion-icon>
       </div>
       <p [ngClass]="{'property-title': ! checkedBasic, 'property-title-disabled': checkedBasic}" color="textProperty">
-        Dados básicos</p>
+        Informações do anúncio</p>
       <p [ngClass]="{'property-sub-title': ! checkedBasic, 'property-sub-title-disabled': checkedBasic}"
          color="textPropertySecondary">Tipo de de anuncio, descrição e etc..</p>
       <ion-icon *ngIf="checkedBasic == false" color="textSecondary" name="checkmark-circle-outline" item-end></ion-icon>

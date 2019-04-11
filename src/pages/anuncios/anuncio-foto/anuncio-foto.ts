@@ -147,15 +147,15 @@ export class AnuncioFotoPage {
         }
     }
 
-    salvar(model) {
+    salvar() {
 
         let loadingModalLogradouro = this.loadingCtrl.createLoading('Enviando imagens...');
 
         this.customForm = this.fb.group({
             'conteudo': [this.photos],
         });
-
-        this.anuncioProvider.updaloadImage( this.immobleModel.id,this.customForm.value).subscribe(res => {
+        //this.immobleModel.id
+        this.anuncioProvider.updaloadImage(this.immobleModel.id, this.customForm.value).subscribe(res => {
             loadingModalLogradouro.dismiss();
             this.viewCtrl.dismiss();
         }, error2 => {

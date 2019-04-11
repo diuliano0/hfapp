@@ -48,7 +48,7 @@ export class AnuncioListPage {
 
     /** Do any initialization */
     ngOnInit() {
-        this.consulta = this.navParams.get('consulta');
+        this.consulta = (!Util.isNullOrUndefined(this.navParams.get('consulta')))?this.navParams.get('consulta'):{filtro: {},order: 'created_at;desc'};
         this.getHotelList();
     }
 
@@ -63,10 +63,11 @@ export class AnuncioListPage {
     getHotelList() {
         this.anuncio.list({
             consulta:JSON.stringify(this.consulta),
-            include:'anexo,enderecos,anunciante.pessoa.telefones'
+            include:'anexo,enderecos,anunciante.pessoa.telefones',
         }).subscribe(res=>{
             //debugger;
-          this.items = res;
+            this.items = res;
+            this._nextPage = res.meta.pagination.links.next;
         });
     }
 
@@ -98,14 +99,13 @@ export class AnuncioListPage {
     }
 
     doInfinite(infiniteScroll) {
-
         if (this._nextPage != null) {
 
             this._requestNextPageBusca = this.anuncio.nextPage(this._nextPage)
                 .subscribe(items => {
 
                     for (let i of items.data) {
-                        this.items.push(i);
+                        this.items.data.push(i);
                     }
 
                     this._nextPage = items.meta.pagination.links.next;
