@@ -46,6 +46,7 @@ export class AnuncioFotoPage {
               private camera: Camera,
               public viewCtrl: ViewController,
               private DomSanitizer: DomSanitizer) {
+    console.log(this.navParams.get("info"));
     if (this.navParams.get("info") != null
       && (this.navParams.get("info")).id != null) {
       this.immobleModel = (this.navParams.get("info"));
@@ -160,7 +161,7 @@ export class AnuncioFotoPage {
     this.customForm = this.fb.group({
       'conteudo': [this.photos.filter(res => !res.hasOwnProperty('id'))],
     });
-    //this.immobleModel.id
+
     this.anuncioProvider.updaloadImage(this.immobleModel.id, this.customForm.value).subscribe(res => {
       loadingModalLogradouro.dismiss();
       this.viewCtrl.dismiss();

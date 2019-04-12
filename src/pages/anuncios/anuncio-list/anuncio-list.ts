@@ -89,6 +89,7 @@ export class AnuncioListPage {
     procedimentoRefresh(refresher){
         let load = this.util.createLoading('Listando...');
         this.anuncio.list({
+            consulta:JSON.stringify(this.consulta),
             include:'anexo,enderecos,anunciante.pessoa.telefones'
         }).subscribe((res: any) => {
             this.items = res;

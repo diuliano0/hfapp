@@ -11,10 +11,11 @@
 
     <!-- Page Title  -->
     <ion-title>Anunciar</ion-title>
+
     <!-- Buttons  -->
     <ion-buttons end >
-      <button clear [disabled]=" ! checkPhotoEnabled()" *ngIf=" ! checkedReadPublished" (click)="salvar()" ion-button>
-        Criar
+      <button clear [disabled]=" ! checkPhotoEnabled() && !checkEnableEdit()" *ngIf=" ! checkedReadPublished" (click)="salvar()" ion-button>
+        Salvar
       </button>
       <button clear *ngIf="checkedReadPublished" (click)="publicar()" ion-button>
         Publicar

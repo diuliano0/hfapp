@@ -25,6 +25,8 @@ export class AnuncioDadosBasicosPage {
 
     categorias;
 
+    categoria_selected;
+
     constructor(public navCtrl: NavController,
                 public fb: FormBuilder,
                 public viewCtrl: ViewController,
@@ -33,16 +35,28 @@ export class AnuncioDadosBasicosPage {
     }
 
     ngOnInit() {
-        this.categoriaProvider.listaCategorias().subscribe(res => {
-            this.categorias = res;
-        });
         this.formDadosBasicos = this.fb.group({
+            "id": [null],
             "categoria_id": [null, Validators.compose([Validators.required])],
             "titulo": [null, Validators.compose([Validators.required])],
             "tipo": [null, Validators.compose([Validators.required])],
             "quantidade": [null, Validators.compose([Validators.required])],
             "valor": [null, Validators.compose([Validators.required])],
             "descricao": [null, Validators.compose([Validators.required])],
+        });
+
+        let anuncio = this.navParams.get("info");
+        if(!Util.isNullOrUndefined(anuncio)){
+            this.formDadosBasicos.patchValue(anuncio);
+        }
+
+        this.categoriaProvider.listaCategorias().subscribe(res => {
+            this.categorias = res;
+            if(!Util.isNullOrUndefined(anuncio)){
+                let teste = this.categorias.data.filter(cat=> cat.id == anuncio.categoria_id)[0];
+                this.categoria_selected = teste;
+                this.formDadosBasicos.controls['categoria_id'].setValue(teste);
+            }
         });
     }
 
