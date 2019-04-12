@@ -23,7 +23,7 @@
     <ion-slides *ngIf="(anuncioDetalhe?.anexo?.data.length > 0)" slidesPerView="1" pager loop="true" effect="slide" autoplay="5000" class="image-slider"
                 style="direction:ltr">
         <ion-slide *ngFor="let img of anuncioDetalhe?.anexo?.data"
-                   [ngStyle]="{'background' : 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + img.url_thumb + ')'}">
+                   [ngStyle]="{'background' : 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + img.url + ')'}">
             <div class="slider-contents">
 
                 <!-- Name of Hotel  -->

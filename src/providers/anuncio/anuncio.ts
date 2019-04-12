@@ -13,77 +13,88 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class AnuncioProvider {
 
-    public ressourceUrl: any = ConfigProvider.host + '/api/v1/front/anuncio/anuncio';
+  public ressourceUrl: any = ConfigProvider.host + '/api/v1/front/anuncio/anuncio';
 
-    constructor(public http: HttpClient) {
-    }
+  constructor(public http: HttpClient) {
+  }
 
-    list(params: any = {}, headers: HttpHeaders = null): Observable<any> {
-        return this.http.get(this.ressourceUrl, {
-            params: params,
-            headers: headers
-        }).pipe(
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
+  list(params: any = {}, headers: HttpHeaders = null): Observable<any> {
+    return this.http.get(this.ressourceUrl, {
+      params: params,
+      headers: headers
+    }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
-    create(data, params: any = {}, headers: HttpHeaders = null) {
-        return this.http.post(this.ressourceUrl, data, {
-            params: params,
-            headers: headers
-        }).pipe(
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
+  create(data, params: any = {}, headers: HttpHeaders = null) {
+    return this.http.post(this.ressourceUrl, data, {
+      params: params,
+      headers: headers
+    }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
-    anuncioByPerfil(params: any = {}, headers: HttpHeaders = null): Observable<any> {
-        return this.http.get(this.ressourceUrl + '/meus-anuncios', {
-            params: params,
-            headers: headers
-        }).pipe(
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
+  anuncioByPerfil(params: any = {}, headers: HttpHeaders = null): Observable<any> {
+    return this.http.get(this.ressourceUrl + '/meus-anuncios', {
+      params: params,
+      headers: headers
+    }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
-    updaloadImage(id, data, params: any = {}, headers: HttpHeaders = null) {
-        return this.http.post(this.ressourceUrl +'/salvar-imagem/' + id, data, {
-            params: params,
-            headers: headers
-        }).pipe(
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
+  updaloadImage(id, data, params: any = {}, headers: HttpHeaders = null) {
+    return this.http.post(this.ressourceUrl + '/salvar-imagem/' + id, data, {
+      params: params,
+      headers: headers
+    }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
-    favotiros(params: any = {}, headers: HttpHeaders = null): Observable<any> {
-        return this.http.get(this.ressourceUrl + '/favoritos', {
-            params: params,
-            headers: headers
-        }).pipe(
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
+  favotiros(params: any = {}, headers: HttpHeaders = null): Observable<any> {
+    return this.http.get(this.ressourceUrl + '/favoritos', {
+      params: params,
+      headers: headers
+    }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
-    nextPage(_url: string = ""): Observable<any> {
+  removerImagem(id, params: any = {}, headers: HttpHeaders = null): Observable<any> {
+    return this.http.delete(this.ressourceUrl + '/imagem/destroy-image/' + id, {
+      params: params,
+      headers: headers
+    }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
-        let options = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Enctype': 'application/json'
-            }
-        };
+  nextPage(_url: string = ""): Observable<any> {
 
-        return this.http.get(_url, options);
-    }
+    let options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Enctype': 'application/json'
+      }
+    };
+
+    return this.http.get(_url, options);
+  }
 
 }

@@ -28,10 +28,11 @@
 <ion-content padding fullscreen elestic-header>
   <div class="my-grid">
     <div class="my-item" *ngFor="let photo of photos; let i = index">
-      <img [src]="DomSanitizer.bypassSecurityTrustUrl(photo)" alt="">
+      <img *ngIf="!photo?.url_thumb" [src]="DomSanitizer.bypassSecurityTrustUrl(photo)" alt="">
+      <img *ngIf="photo?.url_thumb" [src]="DomSanitizer.bypassSecurityTrustUrl(photo.url_thumb)" alt="">
 
       <div class="my-action">
-        <button ion-button color="white" (click)="removeImage(i)" full clear>
+        <button ion-button color="white" (click)="removeImage(i, photo)" full clear>
           <ion-icon name="close-circle"></ion-icon>
         </button>
       </div>

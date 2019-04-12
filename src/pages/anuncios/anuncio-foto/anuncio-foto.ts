@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {
-    AlertController, IonicPage, NavController, NavParams, Platform, PopoverController,
-    ViewController
+  AlertController, IonicPage, NavController, NavParams, Platform, PopoverController,
+  ViewController
 } from 'ionic-angular';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Util} from "../../../providers/base/util";
@@ -18,162 +18,168 @@ import {AnuncioProvider} from "../../../providers/anuncio/anuncio";
 
 @IonicPage()
 @Component({
-    selector: 'page-anuncio-foto',
-    templateUrl: 'anuncio-foto.html',
-    providers: [
-        [Camera],
-        Util,
-        AnuncioProvider
-    ]
+  selector: 'page-anuncio-foto',
+  templateUrl: 'anuncio-foto.html',
+  providers: [
+    [Camera],
+    Util,
+    AnuncioProvider
+  ]
 })
 export class AnuncioFotoPage {
 
-    private customForm: FormGroup;
-    private mPopover = null;
+  private customForm: FormGroup;
+  private mPopover = null;
 
-    immobleModel = {
-        slug: null,
-        id: null,
+  immobleModel: any;
+
+  photos = [];
+  photosSave = [];
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private platform: Platform,
+              private fb: FormBuilder,
+              private anuncioProvider: AnuncioProvider,
+              public loadingCtrl: Util,
+              private popoverCtrl: PopoverController,
+              private camera: Camera,
+              public viewCtrl: ViewController,
+              private DomSanitizer: DomSanitizer) {
+    if (this.navParams.get("info") != null
+      && (this.navParams.get("info")).id != null) {
+      this.immobleModel = (this.navParams.get("info"));
+      if (this.immobleModel.hasOwnProperty('anexo')) {
+        this.photos = this.immobleModel.anexo.data.map(res => {
+          return {url_thumb: res.url_thumb, id: res.id};
+        });
+      }
+    }
+
+
+  }
+
+  presentPopover(myEvent) {
+    this.mPopover = this.popoverCtrl.create('AnuncioFotoOpcoesPage', {
+      actions: [
+        {
+          title: 'Câmera',
+          icon: 'camera',
+          callback: () => {
+            this.takePictureAction();
+          }
+        },
+        {
+          title: 'Galeria',
+          icon: 'image',
+          callback: () => {
+            this.galeryPictureAction();
+          }
+        }
+      ]
+    });
+
+    this.mPopover.present({
+      ev: myEvent
+    });
+  }
+
+  ionViewDidEnter() {
+    this.platform.registerBackButtonAction(() => {
+      this.viewCtrl.dismiss();
+    });
+  }
+
+  takePictureAction() {
+    this.mPopover.dismiss();
+
+    const options: CameraOptions = {
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      quality: 80,
+      targetWidth: 700,
+      targetHeight: 700,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      saveToPhotoAlbum: false,
+      allowEdit: false,
     };
 
-    photos = [];
-    photosSave = [];
+    this.camera.getPicture(options).then((imageData) => {
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
 
-    constructor(public navCtrl: NavController,
-                public navParams: NavParams,
-                private platform: Platform,
-                private fb: FormBuilder,
-                private anuncioProvider: AnuncioProvider,
-                public loadingCtrl: Util,
-                private popoverCtrl: PopoverController,
-                private camera: Camera,
-                public viewCtrl: ViewController,
-                private DomSanitizer: DomSanitizer) {
-        if (this.navParams.get("info") != null
-            && (this.navParams.get("info")).id != null) {
-            this.immobleModel.id = (this.navParams.get("info")).id;
-        }
+      console.log(`Imagem path: ${base64Image}`)
 
+      this.photos.push(base64Image);
+      this.photosSave.push(imageData);
+    }, (err) => {
+      console.log(err)
+    });
+  }
 
+  galeryPictureAction() {
+    this.mPopover.dismiss();
+
+    let cameraOptions = {
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      quality: 80,
+      targetWidth: 700,
+      targetHeight: 700,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      saveToPhotoAlbum: false,
+      allowEdit: false,
+    };
+
+    this.camera.getPicture(cameraOptions)
+      .then(imageData => {
+          let base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.photos.push(base64Image);
+          this.photosSave.push(imageData);
+        },
+        err => console.log(err));
+  }
+
+  removeImage(index, photo) {
+    if (photo.hasOwnProperty('id')) {
+      this.anuncioProvider.removerImagem(photo.id).subscribe(res => {
+      });
     }
-
-    presentPopover(myEvent) {
-        this.mPopover = this.popoverCtrl.create('AnuncioFotoOpcoesPage', {
-            actions: [
-                {
-                    title: 'Câmera',
-                    icon: 'camera',
-                    callback: () => {
-                        this.takePictureAction();
-                    }
-                },
-                {
-                    title: 'Galeria',
-                    icon: 'image',
-                    callback: () => {
-                        this.galeryPictureAction();
-                    }
-                }
-            ]
-        });
-
-        this.mPopover.present({
-            ev: myEvent
-        });
+    if (this.photos.length > 0) {
+      this.photos.splice(index, 1)
     }
+  }
 
-    ionViewDidEnter() {
-        this.platform.registerBackButtonAction(() => {
-            this.viewCtrl.dismiss();
-        });
-    }
+  salvar() {
 
-    takePictureAction() {
-        this.mPopover.dismiss();
+    let loadingModalLogradouro = this.loadingCtrl.createLoading('Enviando imagens...');
 
-        const options: CameraOptions = {
-            sourceType: this.camera.PictureSourceType.CAMERA,
-            quality: 80,
-            targetWidth: 700,
-            targetHeight: 700,
-            destinationType: this.camera.DestinationType.DATA_URL,
-            encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE,
-            correctOrientation: true,
-            saveToPhotoAlbum: false,
-            allowEdit: false,
-        };
+    this.customForm = this.fb.group({
+      'conteudo': [this.photos.filter(res => !res.hasOwnProperty('id'))],
+    });
+    //this.immobleModel.id
+    this.anuncioProvider.updaloadImage(this.immobleModel.id, this.customForm.value).subscribe(res => {
+      loadingModalLogradouro.dismiss();
+      this.viewCtrl.dismiss();
+    }, error2 => {
+      loadingModalLogradouro.dismiss();
+    });
 
-        this.camera.getPicture(options).then((imageData) => {
-            let base64Image = 'data:image/jpeg;base64,' + imageData;
+    /*this.usuariosProvider.uploadImageUser(
+     this.customForm.value,
+     this.immobleModel.id).subscribe(result => {
+     loadingModalLogradouro.dismiss();
+     this.viewCtrl.dismiss();
+     }, error => {
+     loadingModalLogradouro.dismiss();
+     this.usuariosProvider.handleError(error, this.alertCtrl)
+     })*/
+  }
 
-            console.log(`Imagem path: ${base64Image}`)
-
-            this.photos.push(base64Image);
-            this.photosSave.push(imageData);
-        }, (err) => {
-            console.log(err)
-        });
-    }
-
-    galeryPictureAction() {
-        this.mPopover.dismiss();
-
-        let cameraOptions = {
-            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-            quality: 80,
-            targetWidth: 700,
-            targetHeight: 700,
-            destinationType: this.camera.DestinationType.DATA_URL,
-            encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE,
-            correctOrientation: true,
-            saveToPhotoAlbum: false,
-            allowEdit: false,
-        };
-
-        this.camera.getPicture(cameraOptions)
-            .then(imageData => {
-                    let base64Image = 'data:image/jpeg;base64,' + imageData;
-                    this.photos.push(base64Image);
-                    this.photosSave.push(imageData);
-                },
-                err => console.log(err));
-    }
-
-    removeImage(index) {
-        if (this.photos.length > 0) {
-            this.photos.splice(index, 1)
-        }
-    }
-
-    salvar() {
-
-        let loadingModalLogradouro = this.loadingCtrl.createLoading('Enviando imagens...');
-
-        this.customForm = this.fb.group({
-            'conteudo': [this.photos],
-        });
-        //this.immobleModel.id
-        this.anuncioProvider.updaloadImage(this.immobleModel.id, this.customForm.value).subscribe(res => {
-            loadingModalLogradouro.dismiss();
-            this.viewCtrl.dismiss();
-        }, error2 => {
-            loadingModalLogradouro.dismiss();
-        });
-
-        /*this.usuariosProvider.uploadImageUser(
-         this.customForm.value,
-         this.immobleModel.id).subscribe(result => {
-         loadingModalLogradouro.dismiss();
-         this.viewCtrl.dismiss();
-         }, error => {
-         loadingModalLogradouro.dismiss();
-         this.usuariosProvider.handleError(error, this.alertCtrl)
-         })*/
-    }
-
-    dismiss() {
-        this.viewCtrl.dismiss();
-    }
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

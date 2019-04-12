@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {AnuncioProvider} from "../../providers/anuncio/anuncio";
 import {Util} from "../../providers/base/util";
@@ -56,9 +56,9 @@ export class MeusAnunciosPage {
    */
   getHotelList() {
     this.anuncio.anuncioByPerfil({
-      consulta:JSON.stringify(this.consulta),
-      include:'anexo,enderecos,anunciante.pessoa.telefones'
-    }).subscribe(res=>{
+      consulta: JSON.stringify(this.consulta),
+      include: 'anexo,enderecos,anunciante.pessoa.telefones'
+    }).subscribe(res => {
       //debugger;
       this.items = res;
     });
@@ -79,10 +79,10 @@ export class MeusAnunciosPage {
     this.viewCtrl.dismiss();
   }
 
-  procedimentoRefresh(refresher){
+  procedimentoRefresh(refresher) {
     let load = this.util.createLoading('Listando...');
     this.anuncio.anuncioByPerfil({
-      include:'anexo,enderecos,anunciante.pessoa.telefones'
+      include: 'anexo,enderecos,anunciante.pessoa.telefones'
     }).subscribe((res: any) => {
       this.items = res;
       this._nextPage = res.meta.pagination.links.next;
@@ -95,39 +95,60 @@ export class MeusAnunciosPage {
     if (this._nextPage != null) {
 
       this._requestNextPageBusca = this.anuncio.nextPage(this._nextPage)
-          .subscribe(items => {
+        .subscribe(items => {
 
-            for (let i of items.data) {
-              this.items.data.push(i);
-            }
+          for (let i of items.data) {
+            this.items.data.push(i);
+          }
 
-            this._nextPage = items.meta.pagination.links.next;
+          this._nextPage = items.meta.pagination.links.next;
 
-            infiniteScroll.complete();
-          }, error => {
-            infiniteScroll.complete();
-          });
+          infiniteScroll.complete();
+        }, error => {
+          infiniteScroll.complete();
+        });
     } else {
       infiniteScroll.complete();
     }
   }
 
-  openAnunciar(){
+  openAnunciar() {
     this.navCtrl.setRoot('AnuncioCreatePage');
   }
 
-  editar(item){
+  editar(item) {
+
+  }
+
+  remover(item) {
 
   }
 
   abrirOpcoes(item) {
+
     this.util.criarActionSheet('Ações', [
+      {
+        text: 'Editar',
+        icon: 'ios-create',
+        cssClass: 'yellow-color',
+        handler: () => {
+          this.editar(item);
+        }
+      },
+      {
+        text: 'Fotos',
+        icon: 'ios-images',
+        cssClass: 'yellow-color',
+        handler: () => {
+          this.editarFotos(item);
+        }
+      },
       {
         text: 'Remover',
         icon: 'ios-close-circle-outline',
         cssClass: 'yellow-color',
         handler: () => {
-
+          this.remover(item);
         }
       },
       {
@@ -140,7 +161,7 @@ export class MeusAnunciosPage {
     ]);
   }
 
-  editarFotos(item){
+  editarFotos(item) {
     let modal = this.modalCtrl.create('AnuncioFotoPage', {info: item});
     modal.onDidDismiss(data => {
       this.getHotelList();

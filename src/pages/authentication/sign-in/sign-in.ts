@@ -2,14 +2,14 @@
  * @author    ThemesBuckets <themebucketbd@gmail.com>
  * @copyright Copyright (c) 2018
  * @license   Fulcrumy
- * 
+ *
  * This File Represent Sign In Component
  * File path - '../../../src/pages/authentication/sign-in/sign-in'
  */
 
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { FormBuilder, Validators } from '@angular/forms';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
+import {FormBuilder, Validators} from '@angular/forms';
 import {AuthProvider} from "../../../providers/auth/auth";
 import {Util} from "../../../providers/base/util";
 import {ANUNCIO_ROUTE_LIST} from "../../anuncios/conts.conts";
@@ -20,7 +20,7 @@ import {AnuncianteProvider} from "../../../providers/anunciante/anunciante";
 @Component({
   selector: 'page-sign-in',
   templateUrl: 'sign-in.html',
-  providers:[
+  providers: [
     AnuncianteProvider
   ]
 })
@@ -38,7 +38,7 @@ export class SignInPage {
               public auth: AuthProvider,
               public anuncianteProvider: AnuncianteProvider,
               public navParams: NavParams,
-    public menuCtrl: MenuController) {
+              public menuCtrl: MenuController) {
     this.menuCtrl.enable(false);
   }
 
@@ -52,7 +52,7 @@ export class SignInPage {
    * Form Validation
    * --------------------------------------------------------------
    * @method    formValidation    This function build a Login form with validation
-   * 
+   *
    */
   formValidation() {
     this.signInForm = this.fb.group({
@@ -67,15 +67,15 @@ export class SignInPage {
    * Login Action
    * --------------------------------------------------------------
    * @method doLogin    Login action just redirect to your home page.
-   * 
+   *
    * ** You can call any backend API into this function. **
    */
   doLogin(value) {
-    if(!this.signInForm.invalid){
-      this.auth.getAccessToken(value).subscribe(res=>{
+    if (!this.signInForm.invalid) {
+      this.auth.getAccessToken(value).subscribe(res => {
         this.anuncianteProvider.perfil({
-          include:'pessoa.telefone,anexo,pessoa.endereco,usuario'
-        }).subscribe(res=>{
+          include: 'pessoa.telefone,anexo,pessoa.endereco,usuario'
+        }).subscribe(res => {
           AuthProvider.setUser(res);
           this.navCtrl.setRoot(ANUNCIO_ROUTE_LIST);
         });
