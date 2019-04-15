@@ -15,6 +15,16 @@ import {DataProvider} from '../providers/data/data';
 import {ANUNCIO_ROUTE_LIST} from "../pages/anuncios/conts.conts";
 import {AuthProvider} from "../providers/auth/auth";
 import {Util} from "../providers/base/util";
+import * as firebase from "firebase";
+
+const config = {
+    apiKey: 'AIzaSyBXkcMYOlNhEoLETg9QBfmGnyOYX5tcJ5Q',
+    authDomain: 'hortifruti-95eb8.firebaseapp.com',
+    databaseURL: 'https://hortifruti-95eb8.firebaseio.com',
+    projectId: 'hortifruti-95eb8',
+    storageBucket: 'hortifruti-95eb8.appspot.com',
+    messagingSenderId: "556662196462"
+};
 
 @Component({
     templateUrl: 'app.html',
@@ -55,6 +65,7 @@ export class MyApp {
         }
         // Get List of Side Menu Data
         this.getSideMenuData();
+        firebase.initializeApp(config);
     }
 
     initializeApp() {

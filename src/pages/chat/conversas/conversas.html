@@ -1,0 +1,24 @@
+<!--
+  Generated template for the ConversasPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- Header  -->
+<ion-header no-border>
+  <header-one title="Conversas"></header-one>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let room of rooms">
+      <ion-thumbnail item-start>
+        <img *ngIf="(room?.anuncio?.anexo?.data.length > 0)" [src]="room?.anuncio?.anexo?.data[0]?.url_thumb">
+        <img *ngIf="!(room?.anuncio?.anexo?.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
+      </ion-thumbnail>
+      {{room.roomname}}
+      <ion-icon name="chatboxes" item-end (click)="joinRoom(room.key)"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
