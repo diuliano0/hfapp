@@ -101,7 +101,7 @@ export class AnuncioDetailPage {
         }
 
         let sala: any;
-        let sala = this.ref
+        this.ref
             .orderByChild('key')
             .equalTo(this.anuncioDetalhe.id+this.usuario.data.id+this.anuncioDetalhe.anunciante.data.id)
             .limitToLast(1)
@@ -112,7 +112,8 @@ export class AnuncioDetailPage {
                     let newData = this.ref.push();
                     newData.set({
                         key:this.anuncioDetalhe.id+this.usuario.data.id+this.anuncioDetalhe.anunciante.data.id,
-                        anunciante_id: this.usuario.data.id,
+                        comprador_anunciante_id: this.usuario.data.id,
+                        vendedor_anunciante_id: this.anuncioDetalhe.anunciante.data.id,
                         roomname:this.anuncioDetalhe.titulo,
                         anuncio:this.anuncioDetalhe,
                     });

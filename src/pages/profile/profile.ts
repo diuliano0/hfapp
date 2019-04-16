@@ -77,7 +77,8 @@ export class ProfilePage {
         load.dismiss();
       });
     }, (err) => {
-      console.log(err)
+      console.log(err);
+      load.dismiss();
     });
   }
 
@@ -148,6 +149,8 @@ export class ProfilePage {
             load.dismiss();
           });
         },
-        err => console.log(err));
+        err => {
+          load.dismiss();
+        });
   }
 }

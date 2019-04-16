@@ -78,7 +78,7 @@ export class ConversaPage {
 
         this.offStatus = true;
 
-        this.navCtrl.setRoot(RoomPage, {
+        this.navCtrl.setRoot('ConversasPage', {
             nickname:this.nickname
         });
     }
