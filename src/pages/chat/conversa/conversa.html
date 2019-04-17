@@ -1,6 +1,6 @@
 <!-- Header  -->
 <ion-header no-border>
-  <header-two title="{{anuncio?.anunciante?.data?.nome_anunciante}}"></header-two>
+  <header-two title="{{roomname}}"></header-two>
 </ion-header>
 
 
@@ -14,7 +14,7 @@
       <ng-template #message>
         <div class="chat-message" text-right *ngIf="chat.user === nickname">
           <div class="right-bubble">
-            <span class="msg-name">Me</span>
+            <span class="msg-name">Eu</span>
             <span class="msg-date">{{chat?.sendDate | date:'short'}}</span>
             <p text-wrap>{{chat?.message}}</p>
           </div>
@@ -35,7 +35,13 @@
   <ion-grid>
     <ion-row>
       <ion-col col-10 class="backmessage">
-        <ion-input type="text" placeholder="Escreva uma mensagem..." [(ngModel)]="data.message"  name="message"></ion-input>
+        <input
+                type="text"
+                spellcheck="true"
+                class="text-input text-input-ios"
+                placeholder="Escreva uma mensagem..."
+                [(ngModel)]="data.message"
+                name="message" />
       </ion-col>
       <ion-col col-2 (click)="sendMessage()">
         <ion-icon name="paper-plane"></ion-icon>

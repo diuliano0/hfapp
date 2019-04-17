@@ -78,4 +78,20 @@ export class AuthProvider {
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('usuario');
     }
+
+    static setFCMToken(token){
+        window.localStorage.setItem('fcm_token', JSON.stringify(token));
+    }
+
+    static getFCMToken(){
+        return window.localStorage.getItem('fcm_token');
+    }
+
+    static setDeviceUUID(uuid){
+        window.localStorage.setItem('device_uuid', JSON.stringify(uuid));
+    }
+
+    static getDeviceUUID(){
+        return window.localStorage.getItem('device_uuid');
+    }
 }

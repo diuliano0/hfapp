@@ -39,6 +39,7 @@ export class ProfilePage {
   ngOnInit() {
 
   }
+
   loadUser(){
     let user = AuthProvider.getUser();
     this.usuario = user;
@@ -47,6 +48,7 @@ export class ProfilePage {
       this.imageUrl = this.usuario.data.anexo.data.url;
     }
   }
+
   cameraInit() {
 
     const options: CameraOptions = {

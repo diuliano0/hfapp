@@ -23,30 +23,33 @@ export const snapshotToArray = snapshot => {
 export class ConversasPage {
 
     rooms = [];
+    rooms_i = [];
     ref = firebase.database().ref('chatrooms/');
+    usuario;
+    options = 'Minhas conversas';
 
     constructor(public navCtrl: NavController,
                 public modalCtrl: ModalController,
                 public navParams: NavParams) {
-        let usuario = AuthProvider.getUser();
-        console.log(usuario.data.id);
+        this.usuario = AuthProvider.getUser();
         this.ref
             .orderByChild('comprador_anunciante_id')
-            .equalTo(usuario.data.id)
+            .equalTo(this.usuario.data.id)
             .on('value', resp => {
-                let array2 = snapshotToArray(resp);
-                this.rooms = array2.concat(this.rooms);
+                this.rooms = [];
+                this.rooms = snapshotToArray(resp).reverse();
             });
         this.ref
             .orderByChild('vendedor_anunciante_id')
-            .equalTo(usuario.data.id)
+            .equalTo(this.usuario.data.id)
             .on('value', resp => {
-                let array2 = snapshotToArray(resp);
-                this.rooms = array2.concat(this.rooms);
+                this.rooms_i = [];
+                this.rooms_i = snapshotToArray(resp).reverse();
             });
     }
 
     ionViewDidLoad() {
+        this.options = 'Minhas conversas';
     }
 
 
@@ -55,7 +58,7 @@ export class ConversasPage {
         this.modalCtrl.create('ConversaPage', {
             key: sala.key,
             roomname: sala.anuncio.titulo,
-            nickname: sala.anuncio.anunciante.data.nome_anunciante,
+            nickname: this.usuario.data.nome_anunciante,
             anuncio: sala.anuncio,
         }).present();
     }

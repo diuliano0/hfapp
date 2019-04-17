@@ -18,7 +18,7 @@ import * as firebase from 'Firebase';
 @Component({
     selector: 'page-anuncio-detail',
     templateUrl: './anuncio-detail.html',
-    providers:[
+    providers: [
         CallNumber,
         Util,
         AnuncianteProvider,
@@ -40,7 +40,7 @@ export class AnuncioDetailPage {
 
     usuario: any;
 
-    data = { roomname:'', anuncio:'', key:'' };
+    data = {roomname: '', anuncio: '', key: ''};
 
     ref = firebase.database().ref('chatrooms/');
 
@@ -76,19 +76,20 @@ export class AnuncioDetailPage {
         /*window.open(`tel:${this.anuncioDetalhe.anunciante.data.telefone_anunciante}`, '_system');*/
     }
 
-    favoritar(id){
-          this.anuncianteProvider.favoritar(id).subscribe(res => {
-              this.util.criarAlert('Sucesso!', 'Anúncio Favoritado', 'ok');
-          });
+    favoritar(id) {
+        this.anuncianteProvider.favoritar(id).subscribe(res => {
+            this.util.criarAlert('Sucesso!', 'Anúncio Favoritado', 'ok');
+        });
     }
 
-    abrirChat(){
-        if(!this.autenticado()){
+    abrirChat() {
+        if (!this.autenticado()) {
             this.util.criarConfirmacao('', [
                 {
                     text: 'voltar',
                     role: 'cancel',
-                    handler: () => {}
+                    handler: () => {
+                    }
                 },
                 {
                     text: 'Logar',
@@ -96,52 +97,53 @@ export class AnuncioDetailPage {
                         this.navCtrl.setRoot('SignInPage');
                     }
                 }
-            ],'Deseja realizar o login para iniciar o chat?');
+            ], 'Deseja realizar o login para iniciar o chat?');
             return;
         }
 
         let sala: any;
         this.ref
             .orderByChild('key')
-            .equalTo(this.anuncioDetalhe.id+this.usuario.data.id+this.anuncioDetalhe.anunciante.data.id)
+            .equalTo(this.anuncioDetalhe.id + this.usuario.data.id + this.anuncioDetalhe.anunciante.data.id)
             .limitToLast(1)
             .once('value')
-            .then((snapshot)=> {
+            .then((snapshot) => {
                 sala = snapshot.val();
-                if(Util.isNullOrUndefined(sala)){
+                if (Util.isNullOrUndefined(sala)) {
                     let newData = this.ref.push();
                     newData.set({
-                        key:this.anuncioDetalhe.id+this.usuario.data.id+this.anuncioDetalhe.anunciante.data.id,
+                        key: this.anuncioDetalhe.id + this.usuario.data.id + this.anuncioDetalhe.anunciante.data.id,
                         comprador_anunciante_id: this.usuario.data.id,
                         vendedor_anunciante_id: this.anuncioDetalhe.anunciante.data.id,
-                        roomname:this.anuncioDetalhe.titulo,
-                        anuncio:this.anuncioDetalhe,
+                        roomname: this.anuncioDetalhe.titulo,
+                        nickname_lider: this.usuario.data.nome_anunciante,
+                        anuncio: this.anuncioDetalhe,
+                        dataInicio:Date()
                     });
 
                     this.modalCtrl.create('ConversaPage', {
-                        key:newData.key,
-                        roomname:this.anuncioDetalhe.titulo,
-                        nickname:this.anuncioDetalhe.anunciante.data.nome_anunciante,
-                        anuncio:this.anuncioDetalhe,
+                        key: newData.key,
+                        roomname: this.anuncioDetalhe.titulo,
+                        nickname: this.usuario.data.nome_anunciante,
+                        anuncio: this.anuncioDetalhe,
                     }).present();
                     return;
                 }
-                snapshot.forEach((data)=> {
+                snapshot.forEach((data) => {
                     this.modalCtrl.create('ConversaPage', {
-                        key:data.key,
-                        roomname:this.anuncioDetalhe.titulo,
-                        nickname:this.anuncioDetalhe.anunciante.data.nome_anunciante,
-                        anuncio:this.anuncioDetalhe,
+                        key: data.key,
+                        roomname: this.anuncioDetalhe.titulo,
+                        nickname: this.usuario.data.nome_anunciante,
+                        anuncio: this.anuncioDetalhe,
                     }).present();
                 });
 
             });
     }
 
-    autenticado(){
+    autenticado() {
         return AuthProvider.autenticado();
     }
-
 
 
 }

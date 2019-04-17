@@ -6,22 +6,103 @@
 -->
 <!-- Header  -->
 <ion-header no-border>
-  <header-one title="Conversas"></header-one>
+    <header-one title="Conversas"></header-one>
 </ion-header>
 
 <ion-content padding>
+    <!-- User Profile Settings Options  -->
+    <div padding>
+        <ion-segment [(ngModel)]="options" style="direction:ltr">
+            <ion-segment-button value="Minhas conversas">
+                Minhas conversas
+            </ion-segment-button>
+            <ion-segment-button value="Interessados">
+                Interessados
+            </ion-segment-button>
+        </ion-segment>
+    </div>
 
-  <div *ngIf="rooms?.length == 0">
-    <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
-  </div>
-  <ion-list>
-    <ion-item *ngFor="let room of rooms">
-      <ion-thumbnail item-start>
-        <img *ngIf="(room?.anuncio?.anexo?.data.length > 0)" [src]="room?.anuncio?.anexo?.data[0]?.url_thumb">
-        <img *ngIf="!(room?.anuncio?.anexo?.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
-      </ion-thumbnail>
-      {{room.roomname}}
-      <ion-icon name="chatboxes" item-end (click)="abrirChat(room)"></ion-icon>
-    </ion-item>
-  </ion-list>
+    <!-- Settings View   -->
+    <div [ngSwitch]="options" padding-top>
+
+        <!-- User Information Section -->
+        <div *ngSwitchCase="'Minhas conversas'">
+
+
+            <div *ngIf="rooms?.length == 0">
+                <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
+            </div>
+            <ion-list>
+                <ion-item *ngFor="let room of rooms" (click)="abrirChat(room)">
+                    <ion-thumbnail item-start>
+                        <img *ngIf="(room?.anuncio?.anexo?.data.length > 0)"
+                             [src]="room?.anuncio?.anexo?.data[0]?.url_thumb">
+                        <img *ngIf="!(room?.anuncio?.anexo?.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
+                    </ion-thumbnail>
+                    <!-- Name of Hotel -->
+                    <p text-wrap class="name">{{room?.anuncio?.titulo }}</p>
+
+                    <!-- Hotel Review and Type  -->
+                    <!--<p class="reviews">{{item.quantidade}} Reviews | {{hotel.type}} hotel</p>-->
+                    <p class="reviews" *ngIf="(room?.anuncio?.enderecos.data.length > 0)">{{room?.anuncio?.enderecos.data[0].cidade_nome}} -
+                        {{room?.anuncio?.enderecos.data[0].estado_uf}}</p>
+
+                    <ion-item style="background: transparent" no-padding>
+
+                        <!-- Hotel Ratings  -->
+                        <!--<rating [(ngModel)]="hotel.star" readOnly="false" max="{{hotel.star}}" emptyStarIconName="ios-star-outline" halfStarIconName="star-half"
+                                starIconName="ios-star" nullable="true">
+                        </rating>-->
+
+                        <!-- Price  -->
+                        <ion-badge item-end>R${{room?.anuncio?.valor}}</ion-badge>
+                        <ion-badge *ngIf="(room?.anuncio?.quantidade > 0)" item-end>Qtd: {{room?.anuncio?.quantidade}}
+                        </ion-badge>
+                    </ion-item>
+                    <!--<ion-icon name="chatboxes" item-end (click)="abrirChat(room)"></ion-icon>-->
+                </ion-item>
+            </ion-list>
+
+        </div>
+
+        <!-- Credit Card Information Section -->
+        <div *ngSwitchCase="'Interessados'">
+
+            <div *ngIf="rooms_i?.length == 0">
+                <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
+            </div>
+            <ion-list>
+                <ion-item *ngFor="let room of rooms_i" (click)="abrirChat(room)">
+                    <ion-thumbnail item-start>
+                        <img *ngIf="(room?.anuncio?.anexo?.data.length > 0)"
+                             [src]="room?.anuncio?.anexo?.data[0]?.url_thumb">
+                        <img *ngIf="!(room?.anuncio?.anexo?.data.length > 0)" src="assets/imgs/sem_imagem.jpg">
+                    </ion-thumbnail>
+                    <!-- Name of Hotel -->
+                    <p text-wrap class="name">{{room?.anuncio?.titulo }}</p>
+
+                    <!-- Hotel Review and Type  -->
+                    <!--<p class="reviews">{{item.quantidade}} Reviews | {{hotel.type}} hotel</p>-->
+                    <p class="reviews">Interessado: {{room.nickname_lider}}</p>
+                    <p class="reviews" *ngIf="(room?.anuncio?.enderecos.data.length > 0)">{{room?.anuncio?.enderecos.data[0].cidade_nome}} -
+                        {{room?.anuncio?.enderecos.data[0].estado_uf}}</p>
+
+                    <ion-item style="background: transparent" no-padding>
+
+                        <!-- Hotel Ratings  -->
+                        <!--<rating [(ngModel)]="hotel.star" readOnly="false" max="{{hotel.star}}" emptyStarIconName="ios-star-outline" halfStarIconName="star-half"
+                                starIconName="ios-star" nullable="true">
+                        </rating>-->
+
+                        <!-- Price  -->
+                        <ion-badge item-end>R${{room?.anuncio?.valor}}</ion-badge>
+                        <ion-badge *ngIf="(room?.anuncio?.quantidade > 0)" item-end>Qtd: {{room?.anuncio?.quantidade}}
+                        </ion-badge>
+                    </ion-item>
+                    <!--<ion-icon name="chatboxes" item-end (click)="abrirChat(room)"></ion-icon>-->
+                </ion-item>
+            </ion-list>
+
+        </div>
+    </div>
 </ion-content>
