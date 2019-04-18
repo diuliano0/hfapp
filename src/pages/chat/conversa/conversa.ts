@@ -73,7 +73,6 @@ export class ConversaPage {
             sendDate:Date()
         });
         this.data.message = '';
-        this.envoieNotif();
 
     }
 
@@ -94,8 +93,7 @@ export class ConversaPage {
     }
     envoieNotif() {
 
-        let headers = new Headers({ 'Authorization': 'Bearer '+AuthProvider.getFCMToken(), 'Content-Type': 'application/json' });
-        let options = { headers: headers };
+        let options = { headers: { 'Authorization': 'Bearer '+AuthProvider.getFCMToken(), 'Content-Type': 'application/json' } };
         let notification = {
             "notification": {
                 "title": "Titre",

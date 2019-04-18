@@ -18,21 +18,25 @@ export class InterceptedHttpProvider implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
         let authReq = req.clone({
             headers: req.headers.set(DEFAULT_HEADER_ACCEPT, DEFAULT_HEADER_JSON_APPLICATION)
         });
-        let autenticado =AuthProvider.autenticado();
-        if (autenticado) {
-            authReq = req.clone({
-                headers: req.headers.set(
-                    DEFAULT_HEADER_AUTHORIZATION,
-                    DEFAULT_HEADER_PREFIX_BEARER + ' ' + AuthProvider.getAccessTokenString(),
-                ).set(
-                    DEFAULT_CONTEXT_USER,
-                    AuthProvider.getContextUser(),
-                )
-            });
+        if(!req.headers.has(DEFAULT_HEADER_AUTHORIZATION)){
+            let autenticado = AuthProvider.autenticado();
+            if (autenticado) {
+                authReq = req.clone({
+                    headers: req.headers.set(
+                        DEFAULT_HEADER_AUTHORIZATION,
+                        DEFAULT_HEADER_PREFIX_BEARER + ' ' + AuthProvider.getAccessTokenString(),
+                    ).set(
+                        DEFAULT_CONTEXT_USER,
+                        AuthProvider.getContextUser(),
+                    )
+                });
+            }
         }
+
         return next.handle(authReq).pipe(
             tap(event => {
                 if (event instanceof HttpResponse) {

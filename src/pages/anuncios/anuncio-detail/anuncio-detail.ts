@@ -70,7 +70,7 @@ export class AnuncioDetailPage {
     }
 
     chamar() {
-        this.callNumber.callNumber(this.anuncioDetalhe.anunciante.data.telefone_anunciante, true)
+        this.callNumber.callNumber('0'+this.anuncioDetalhe.anunciante.data.telefone_anunciante, true)
             .then(res => console.log('Launched dialer!', res))
             .catch(err => console.log('Error launching dialer', err));
         /*window.open(`tel:${this.anuncioDetalhe.anunciante.data.telefone_anunciante}`, '_system');*/
@@ -117,6 +117,7 @@ export class AnuncioDetailPage {
                         vendedor_anunciante_id: this.anuncioDetalhe.anunciante.data.id,
                         roomname: this.anuncioDetalhe.titulo,
                         nickname_lider: this.usuario.data.nome_anunciante,
+                        uuid_lider: AuthProvider.getDeviceUUID(),
                         anuncio: this.anuncioDetalhe,
                         dataInicio:Date()
                     });
