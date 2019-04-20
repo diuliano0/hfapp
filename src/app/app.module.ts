@@ -23,6 +23,8 @@ import {AnuncianteProvider} from '../providers/anunciante/anunciante';
 import {CategoriaProvider} from '../providers/categoria/categoria';
 import {IonicSelectableModule} from "ionic-selectable";
 import {EnderecoProvider} from '../providers/endereco/endereco';
+import {UniqueDeviceID} from "@ionic-native/unique-device-id";
+import {FCM} from "@ionic-native/fcm";
 
 registerLocaleData(ptBr);
 // By default TranslateLoader will look for translation json files in i18n/
@@ -66,6 +68,8 @@ export function HttpLoaderFactory(http: HttpClient) {
             useClass: InterceptedHttpProvider,
             multi: true
         },
+        UniqueDeviceID,
+        FCM,
         {provide: LOCALE_ID, useValue: 'pt'},
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},

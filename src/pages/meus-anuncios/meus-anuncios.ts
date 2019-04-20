@@ -42,7 +42,7 @@ export class MeusAnunciosPage {
 
   /** Do any initialization */
   ngOnInit() {
-    this.consulta = this.navParams.get('consulta');
+    this.consulta = {filtro: {},order: 'created_at;desc'};
     this.getHotelList();
   }
 
@@ -82,6 +82,7 @@ export class MeusAnunciosPage {
   procedimentoRefresh(refresher) {
     let load = this.util.createLoading('Listando...');
     this.anuncio.anuncioByPerfil({
+      consulta: JSON.stringify(this.consulta),
       include: 'anexo,enderecos,anunciante.pessoa.telefones'
     }).subscribe((res: any) => {
       this.items = res;
@@ -117,7 +118,11 @@ export class MeusAnunciosPage {
   }
 
   editar(item) {
-
+    let modal = this.modalCtrl.create('AnuncioCreatePage', {info: item});
+    modal.onDidDismiss(data => {
+      this.getHotelList();
+    });
+    modal.present();
   }
 
   remover(item) {
@@ -143,14 +148,14 @@ export class MeusAnunciosPage {
           this.editarFotos(item);
         }
       },
-      {
+      /*{
         text: 'Remover',
         icon: 'ios-close-circle-outline',
         cssClass: 'yellow-color',
         handler: () => {
           this.remover(item);
         }
-      },
+      },*/
       {
         text: 'Voltar',
         icon: 'ios-undo-outline',
@@ -159,6 +164,7 @@ export class MeusAnunciosPage {
         }
       }
     ]);
+
   }
 
   editarFotos(item) {

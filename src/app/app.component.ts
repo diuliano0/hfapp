@@ -15,6 +15,18 @@ import {DataProvider} from '../providers/data/data';
 import {ANUNCIO_ROUTE_LIST} from "../pages/anuncios/conts.conts";
 import {AuthProvider} from "../providers/auth/auth";
 import {Util} from "../providers/base/util";
+import * as firebase from "firebase";
+import {UniqueDeviceID} from "@ionic-native/unique-device-id";
+import {FCM as FCMPlugin} from "@ionic-native/fcm";
+
+const config = {
+    apiKey: 'AIzaSyBXkcMYOlNhEoLETg9QBfmGnyOYX5tcJ5Q',
+    authDomain: 'hortifruti-95eb8.firebaseapp.com',
+    databaseURL: 'https://hortifruti-95eb8.firebaseio.com',
+    projectId: 'hortifruti-95eb8',
+    storageBucket: 'hortifruti-95eb8.appspot.com',
+    messagingSenderId: "556662196462"
+};
 
 @Component({
     templateUrl: 'app.html',
@@ -38,6 +50,8 @@ export class MyApp {
 
     constructor(public platform: Platform,
                 public statusBar: StatusBar,
+                private uniqueDeviceID: UniqueDeviceID,
+                private fcm: FCMPlugin,
                 public splashScreen: SplashScreen,
                 public menuCtrl: MenuController,
                 public translateService: TranslateService,
@@ -50,11 +64,16 @@ export class MyApp {
         this.anunciante = AuthProvider.getUser();
 
 
-        if(!Util.isNullOrUndefined(this.anunciante)){
+        if(!Util.isNullOrUndefined(this.anunciante) && this.anunciante.data.hasOwnProperty('anexo')){
             this.imageUrl = this.anunciante.data.anexo.data.url;
         }
         // Get List of Side Menu Data
         this.getSideMenuData();
+        firebase.initializeApp(config);
+        this.uniqueDeviceID.get()
+            .then((uuid: any) => AuthProvider.setDeviceUUID(uuid))
+            .catch((error: any) => console.log(error));
+        this.fcm.getToken().then(token => AuthProvider.setFCMToken(token));
     }
 
     initializeApp() {

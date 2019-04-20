@@ -39,6 +39,16 @@ export class AnuncioProvider {
       })
     );
   }
+  update(id, data, params: any = {}, headers: HttpHeaders = null) {
+    return this.http.put(this.ressourceUrl+'/'+id, data, {
+      params: params,
+      headers: headers
+    }).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
   anuncioByPerfil(params: any = {}, headers: HttpHeaders = null): Observable<any> {
     return this.http.get(this.ressourceUrl + '/meus-anuncios', {

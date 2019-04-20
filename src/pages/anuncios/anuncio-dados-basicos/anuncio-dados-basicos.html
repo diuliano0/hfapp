@@ -29,6 +29,7 @@
                 <ion-label>Categoria</ion-label>
                 <ionic-selectable *ngIf="categorias?.data"
                                   item-content
+                                  [(ngModel)]="categoria_selected"
                                   formControlName="categoria_id"
                                   [items]="categorias.data"
                                   itemValueField="id"

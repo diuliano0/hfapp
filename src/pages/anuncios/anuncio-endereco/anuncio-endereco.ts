@@ -41,6 +41,10 @@ export class AnuncioEnderecoPage {
             'id': [null],
             'tipo_endereco': [0, Validators.compose([Validators.required, Validators.maxLength(255)])],
         });
+        let anuncio = this.navParams.get("info");
+        if(!Util.isNullOrUndefined(anuncio) && anuncio.hasOwnProperty('enderecos')){
+            this.enderecoForm.patchValue(anuncio.enderecos[0]);
+        }
     }
 
     localizaCep() {

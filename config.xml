@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicbucket.travelagencykit" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="br.com.hortifruti" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Hortifruti Fácil</name>
     <description>Venha fazer parte dessa nova onda anúncie seus alimentos.</description>
     <author email="diuliano0@gmail.com" href="http://www.macronline.com.br/">Diuliano de Sousa Oliveira</author>
@@ -87,5 +87,7 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^2.4.0" />
+    <plugin name="cordova-plugin-uniquedeviceid" spec="^1.3.2" />
     <engine name="android" spec="6.3.0" />
 </widget>
