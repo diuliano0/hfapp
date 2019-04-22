@@ -25,7 +25,7 @@ export class AnuncioCreatePage {
     checkedPayment = false;
     checkedReadCreate = false;
     checkedReadPublished = false;
-    anuncio: any = null;
+    anuncio: any = {};
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -46,6 +46,8 @@ export class AnuncioCreatePage {
                 "quantidade": anuncio.quantidade,
                 "valor": anuncio.valor,
                 "descricao": anuncio.descricao,
+                "lng": anuncio.lng,
+                "lat": anuncio.lat,
                 "enderecos": [{
                     'logradouro': anuncio.enderecos.data[0].logradouro,
                     'cep': anuncio.enderecos.data[0].cep,
@@ -61,7 +63,6 @@ export class AnuncioCreatePage {
                 }]
             };
         }
-
     }
 
     segueToPropertyBasicPage() {
@@ -82,7 +83,7 @@ export class AnuncioCreatePage {
             let modal = this.modalCtrl.create('AnuncioEnderecoPage', {info: this.anuncio});
             modal.onDidDismiss(data => {
                 if (data != null && data.data != null) {
-                    this.anuncio.enderecos = [data.data];
+                    this.anuncio['enderecos'] = [data.data];
                     this.checkedLocation = true;
                 }
             });

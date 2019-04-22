@@ -40,7 +40,7 @@
                     </rating>-->
 
                     <!-- Price  -->
-                    <ion-badge item-end>R${{item?.valor}}</ion-badge>
+                    <ion-badge item-end>{{item?.valor|currency:'BRL'}}</ion-badge>
                     <ion-badge *ngIf="(item?.quantidade > 0)" item-end>Qtd: {{item?.quantidade}}</ion-badge>
                 </ion-item>
             </ion-item>

@@ -13,9 +13,9 @@
     <ion-title>Fotos</ion-title>
     <!-- Buttons  -->
     <ion-buttons end>
-      <button ion-button icon-only (click)="presentPopover($event)">
+      <!--<button ion-button icon-only (click)="presentPopover($event)">
         <ion-icon color="camera" name="camera"></ion-icon>
-      </button>
+      </button>-->
 
       <button ion-button (click)="salvar()">
         <span ion-text color="white">Salvar</span>
@@ -26,6 +26,15 @@
 
 <!-- Content  -->
 <ion-content padding fullscreen elestic-header>
+  <!-- Hotel Location Map Icon  -->
+  <ion-fab bottom right edge>
+    <button ion-fab color="danger" (tap)="presentPopover($event)">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+  </ion-fab>
+  <div *ngIf="photos?.length == 0">
+    <img src="assets/imgs/sem-foto.jpg"  height="200px" class="empty-list">
+  </div>
   <div class="my-grid">
     <div class="my-item" *ngFor="let photo of photos; let i = index">
       <img *ngIf="!photo?.url_thumb" [src]="DomSanitizer.bypassSecurityTrustUrl(photo)" alt="">

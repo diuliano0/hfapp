@@ -1,6 +1,6 @@
 <!-- Header  -->
 <ion-header no-border>
-    <header-four title="Endereço"></header-four>
+    <header-two title="Endereço"></header-two>
 </ion-header>
 
 <!-- Content  -->
@@ -19,22 +19,27 @@
                        [textMask]="{mask: cepMask}"
                        [class.invalid]="!enderecoForm.controls['cep'].valid && enderecoForm.controls['cep'].dirty"/>
             </ion-item>
-            <ion-item>
-                <ion-input type="text"
-                           placeholder="Cidade"
-                           class="text-input text-input-ios"
-                           name="cidade_nome"
-                           readonly
-                           formControlName="cidade_nome"
-                           [class.invalid]="!enderecoForm.controls['cidade_nome'].valid && enderecoForm.controls['cidade_nome'].dirty"></ion-input>
-
-                <ion-input type="text"
-                           placeholder="Estado"
-                           class="text-input text-input-ios"
-                           name="estado_nome"
-                           readonly
-                           formControlName="estado_nome"
-                           [class.invalid]="!enderecoForm.controls['estado_nome'].valid && enderecoForm.controls['estado_nome'].dirty"></ion-input>
+            <ion-item id="estado">
+                <ion-label>Estado</ion-label>
+                <ion-select class="app-select-value" formControlName="estado_nome" placeholder="Selecione o Estado"
+                            (ionChange)="mudarEstado($event)" okText="OK" cancelText="Cancelar">
+                    <ion-option *ngFor="let estado of estados?.data; let i = index;" [value]="estado.id">{{estado.nome}}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item id="cidade" *ngIf="enderecoForm.controls['estado_nome'].value">
+                <ion-label>Cidade</ion-label>
+                <ionic-selectable
+                                  [ngClass]="(!enderecoForm.controls['cidade_nome'].pristine) ? 'app-select-title' :'app-select-notitle' "
+                                  item-content
+                                  formControlName="cidade_nome"
+                                  title="Selecione a Cidade"
+                                  [items]="cidades?.data"
+                                  itemValueField="id"
+                                  itemTextField="nome"
+                                  (onChange)="mudarCidade($event)"
+                                  [canSearch]="true">
+                </ionic-selectable>
             </ion-item>
             <ion-item>
                 <ion-input type="text"
@@ -57,6 +62,11 @@
                            name="complemento"
                            formControlName="complemento"
                            [class.invalid]="!enderecoForm.controls['complemento'].valid && enderecoForm.controls['complemento'].dirty"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!(enderecoForm.controls['lat'].value)">
+                <button ion-button round block type="button" (tap)="getLocation()" class="custom-btn">
+                    Minha localização
+                </button>
             </ion-item>
         </ion-list>
         <button ion-button round block type="submit" class="custom-btn">

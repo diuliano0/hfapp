@@ -31,4 +31,26 @@ export class EnderecoProvider {
     );
   }
 
+  listaEstados(params: any = {}, headers: HttpHeaders = null) {
+    return this.http.get<any[]>(ConfigProvider.host + '/api/v1/admin/localidade/estados/select-estados',{
+      params: params,
+      headers: headers
+    }).pipe(
+        map((response: any) => {
+          return response;
+        })
+    );
+  }
+
+  listaCidade(estadoId, params: any = {}, headers: HttpHeaders = null) {
+    return this.http.get<any[]>(ConfigProvider.host + '/api/v1/admin/localidade/cidades/select-cidades/' + estadoId,{
+      params: params,
+      headers: headers
+    }).pipe(
+        map((response: any) => {
+          return response;
+        })
+    );
+  }
+
 }

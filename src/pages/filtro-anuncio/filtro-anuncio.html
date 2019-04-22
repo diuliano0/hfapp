@@ -19,7 +19,7 @@
                             <ion-option [value]="1">Vender</ion-option>
                         </ion-select>
                     </ion-item>
-                    <ion-item>
+                    <!--<ion-item>
                         <input type="text"
                                placeholder="Qual produto?"
                                spellcheck="true"
@@ -27,9 +27,9 @@
                                name="anuncio.anuncios.titulo"
                                formControlName="anuncio.anuncios.titulo"
                                [class.invalid]="!pesquisaForm.controls['anuncio.anuncios.titulo'].valid && pesquisaForm.controls['anuncio.anuncios.titulo'].dirty"/>
-                    </ion-item>
+                    </ion-item>-->
                     <ion-item>
-                        <ion-label>Categoria</ion-label>
+                        <ion-label>Qual produto?</ion-label>
                         <ionic-selectable *ngIf="categorias?.data"
                                           item-content
                                           formControlName="anuncio.anuncios.categoria_id"

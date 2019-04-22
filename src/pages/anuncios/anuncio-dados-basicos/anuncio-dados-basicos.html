@@ -1,8 +1,7 @@
 <!-- Header  -->
 <ion-header no-border>
-    <header-four title="Dados Básicos"></header-four>
+    <header-two title="Dados Básicos"></header-two>
 </ion-header>
-
 <!-- Content  -->
 <ion-content padding fullscreen elestic-header>
     <form class="animated slideInUp"
@@ -26,7 +25,7 @@
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label>Categoria</ion-label>
+                <ion-label>Qual produto?</ion-label>
                 <ionic-selectable *ngIf="categorias?.data"
                                   item-content
                                   [(ngModel)]="categoria_selected"
