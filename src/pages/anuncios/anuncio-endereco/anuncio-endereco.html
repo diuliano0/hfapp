@@ -15,7 +15,6 @@
                        class="text-input text-input-ios"
                        name="cep"
                        formControlName="cep"
-                       (blur)="localizaCep()"
                        [textMask]="{mask: cepMask}"
                        [class.invalid]="!enderecoForm.controls['cep'].valid && enderecoForm.controls['cep'].dirty"/>
             </ion-item>
