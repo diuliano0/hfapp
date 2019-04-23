@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EnderecoProvider} from "../../../providers/endereco/endereco";
 import {Util} from "../../../providers/base/util";
@@ -30,6 +30,7 @@ export class AnuncioEnderecoPage {
 
     constructor(public navCtrl: NavController,
                 public fb: FormBuilder,
+                public modalCtrl: ModalController,
                 public util: Util,
                 private geolocation: Geolocation,
                 public enderecoProvider: EnderecoProvider,
@@ -64,16 +65,13 @@ export class AnuncioEnderecoPage {
     }
 
     getLocation(){
-        let load = this.util.createLoading('Buscando...');
         this.geolocation.getCurrentPosition().then((resp) => {
             // resp.coords.latitude
             // resp.coords.longitude
             this.enderecoForm.controls['lat'].setValue(resp.coords.latitude);
             this.enderecoForm.controls['lng'].setValue(resp.coords.longitude);
-            load.dismiss();
         }).catch((error) => {
             this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
-            load.dismiss();
         });
     }
 
@@ -89,8 +87,11 @@ export class AnuncioEnderecoPage {
                 this.enderecoForm.controls['cidade_nome'].setValue(e.data.cidade_nome);
                 this.enderecoForm.controls['estado_nome'].setValue(e.data.estado_nome);
                 load.dismiss();
+            },error2 => {
+                load.dismiss();
             });
     }
+
     listaEstados() {
         this.enderecoProvider.listaEstados().subscribe(res => {
             this.estados = res;
@@ -128,9 +129,30 @@ export class AnuncioEnderecoPage {
             load.dismiss();
         });
     }
+
     mudarCidade(cidade){
         this.enderecoForm.controls['cidade_id'].setValue(cidade.value.id);
     }
+
+    abrirMapa(){
+        if( this.enderecoForm.controls['lat'].value != null){
+            let modal = this.modalCtrl.create('AnuncioMapaPage', {
+                lat: this.enderecoForm.controls['lat'].value,
+                lng: this.enderecoForm.controls['lng'].value
+            });
+            modal.onDidDismiss((data )=> {
+                if(data.hasOwnProperty('data')){
+                    this.enderecoForm.controls['lat'].setValue(data.data.lat);
+                    this.enderecoForm.controls['lng'].setValue(data.data.lng);
+                    //this.enderecoForm.controls['logradouro'].setValue(data.data.titulo);
+                }
+            });
+            modal.present();
+        }else{
+            this.getLocation();
+        }
+    }
+
     salvar(value){
         if(!this.enderecoForm.invalid){
             this.viewCtrl.dismiss({data: value});

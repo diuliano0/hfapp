@@ -1,0 +1,36 @@
+page-anuncio-mapa {
+  ion-content {
+    background-image: linear-gradient(to right bottom, color($colors, color1), color($colors, color2));
+    background-size: 100% 20%;
+    background-repeat: no-repeat;
+    border-color: transparent;
+  }
+  #map {
+    height: 100%;
+  }
+  .pronto{
+    position: fixed;
+    margin: 0 auto;
+    bottom: -2%;
+    width: 100%;
+  }
+  #inicio{
+    background-color: white;
+  }
+  #centerMarkerImage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom:0;
+    margin: auto;
+    width: 32px; // image width
+    height: 24px; // image height
+    z-index: 1;
+  }
+  #map_canvas {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+   }
+}

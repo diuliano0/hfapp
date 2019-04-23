@@ -62,9 +62,9 @@
                            formControlName="complemento"
                            [class.invalid]="!enderecoForm.controls['complemento'].valid && enderecoForm.controls['complemento'].dirty"></ion-input>
             </ion-item>
-            <ion-item *ngIf="!(enderecoForm.controls['lat'].value)">
-                <button ion-button round block type="button" (tap)="getLocation()" class="custom-btn">
-                    Minha localização
+            <ion-item>
+                <button ion-button round block type="button" (tap)="abrirMapa()" class="custom-btn">
+                    Onde o anuncio está localizado?
                 </button>
             </ion-item>
         </ion-list>
