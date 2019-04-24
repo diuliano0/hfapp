@@ -60,10 +60,10 @@ export class AnuncioMapaPage {
             zoom: 15,
             center: this.latLng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: false,
+            mapTypeControl: true,
             zoomControl: false,
-            streetViewControl: false,
             fullscreenControl: false,
+            streetViewControl: false,
         };
 
         this.map = new google.maps.Map(document.getElementById('map'), mapOptions);

@@ -9,6 +9,7 @@
 
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import {Util} from "../../providers/base/util";
 declare var google: any;
 
 @IonicPage()
@@ -21,12 +22,23 @@ export class LocationMapPage {
   map: any;
   geocoder: any;
   address: any;
+  latLng: any;
+  options;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public platform: Platform) {
     // Get Hotel Address
-    this.address = this.navParams.get('address');
+    if(Util.isNullOrUndefined(this.navParams.get('lat'))){
+      this.options = {
+        address: this.navParams.get('address')
+      };
+    }else{
+      this.options = {
+        latLng: new google.maps.LatLng(this.navParams.get('lat'), this.navParams.get('lng'))
+      };
+    }
+
   }
 
   /**
@@ -48,9 +60,7 @@ export class LocationMapPage {
     this.geocoder = new google.maps.Geocoder();
 
     // Convert Hotel Address into Geographic Coordinates(Latitude and Longitude)
-    this.geocoder.geocode({
-      'address': this.address
-    }, function (results, status) {
+    this.geocoder.geocode(this.options, function (results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
 
         // Hotel Latitude
@@ -67,7 +77,7 @@ export class LocationMapPage {
           zoom: 17,
           center: latlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
+        };
 
         this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
@@ -85,7 +95,7 @@ export class LocationMapPage {
           content: results[0].formatted_address
         });
 
-        google.maps.event.addListener(marker, 'click', function () {
+        google.maps.event.addListener(marker, 'click', ()=> {
           infoWindow.open(this.map, marker);
         });
       }

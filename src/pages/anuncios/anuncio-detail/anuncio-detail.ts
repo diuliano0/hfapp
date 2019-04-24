@@ -66,7 +66,11 @@ export class AnuncioDetailPage {
      * Open Location Map
      */
     openLocationMap() {
-        this.modalCtrl.create('LocationMapPage', {address: this.anuncioDetalhe.enderecos.data[0].logradouro + ', ' + this.anuncioDetalhe.enderecos.data[0].cidade_nome + ', ' + this.anuncioDetalhe.enderecos.data[0].estado_uf}).present();
+        this.modalCtrl.create('LocationMapPage', {
+            address: this.anuncioDetalhe.enderecos.data[0].logradouro + ', ' + this.anuncioDetalhe.enderecos.data[0].cidade_nome + ', ' + this.anuncioDetalhe.enderecos.data[0].estado_uf,
+            lat:this.anuncioDetalhe.lat,
+            lng:this.anuncioDetalhe.lng
+        }).present();
     }
 
     chamar() {

@@ -10,6 +10,11 @@
           (submit)="salvar(enderecoForm.value)">
         <ion-list>
             <ion-item>
+                <button ion-button round block type="button" (tap)="abrirMapa()" class="custom-btn botao_customizado">
+                    Onde o anuncio está localizado?
+                </button>
+            </ion-item>
+            <ion-item>
                 <input type="text"
                        placeholder="CEP"
                        class="text-input text-input-ios"
@@ -61,11 +66,6 @@
                            name="complemento"
                            formControlName="complemento"
                            [class.invalid]="!enderecoForm.controls['complemento'].valid && enderecoForm.controls['complemento'].dirty"></ion-input>
-            </ion-item>
-            <ion-item>
-                <button ion-button round block type="button" (tap)="abrirMapa()" class="custom-btn">
-                    Onde o anuncio está localizado?
-                </button>
             </ion-item>
         </ion-list>
         <button ion-button round block type="submit" class="custom-btn">

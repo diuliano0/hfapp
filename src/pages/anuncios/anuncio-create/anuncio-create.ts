@@ -83,7 +83,12 @@ export class AnuncioCreatePage {
             let modal = this.modalCtrl.create('AnuncioEnderecoPage', {info: this.anuncio});
             modal.onDidDismiss(data => {
                 if (data != null && data.data != null) {
+                    if(data.data.hasOwnProperty('lat')){
+                        this.anuncio['lat'] = data.data.lat;
+                        this.anuncio['lng'] = data.data.lng;
+                    }
                     this.anuncio['enderecos'] = [data.data];
+                    debugger;
                     this.checkedLocation = true;
                 }
             });

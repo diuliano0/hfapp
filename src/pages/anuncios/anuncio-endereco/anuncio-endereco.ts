@@ -135,22 +135,32 @@ export class AnuncioEnderecoPage {
     }
 
     abrirMapa(){
-        if( this.enderecoForm.controls['lat'].value != null){
+        this.geolocation.getCurrentPosition().then((resp) => {
+            // resp.coords.latitude
+            // resp.coords.longitude
             let modal = this.modalCtrl.create('AnuncioMapaPage', {
-                lat: this.enderecoForm.controls['lat'].value,
-                lng: this.enderecoForm.controls['lng'].value
+                lat: resp.coords.latitude,
+                lng: resp.coords.longitude
             });
             modal.onDidDismiss((data )=> {
+                if(Util.isNullOrUndefined(data))
+                    return;
                 if(data.hasOwnProperty('data')){
                     this.enderecoForm.controls['lat'].setValue(data.data.lat);
                     this.enderecoForm.controls['lng'].setValue(data.data.lng);
                     //this.enderecoForm.controls['logradouro'].setValue(data.data.titulo);
                 }
             });
-            modal.present();
-        }else{
-            this.getLocation();
-        }
+            let load = this.util.createLoading('Abrindo mapa');
+            modal.present().then((value)=>{
+                load.dismiss();
+            }).catch((err)=>{
+                load.dismiss();
+                this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
+            });
+        }).catch((error) => {
+            this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
+        });
     }
 
     salvar(value){
