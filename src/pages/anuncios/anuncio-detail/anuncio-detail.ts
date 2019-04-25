@@ -122,6 +122,7 @@ export class AnuncioDetailPage {
                         roomname: this.anuncioDetalhe.titulo,
                         nickname_lider: this.usuario.data.nome_anunciante,
                         uuid_lider: AuthProvider.getDeviceUUID(),
+                        comprador_fcm: AuthProvider.getFCMToken(),
                         anuncio: this.anuncioDetalhe,
                         dataInicio:Date()
                     });

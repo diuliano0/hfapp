@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import * as firebase from 'Firebase';
 import {AuthProvider} from "../../../providers/auth/auth";
+import {AnuncioProvider} from "../../../providers/anuncio/anuncio";
 
 export const snapshotToArray = snapshot => {
     let returnArr = [];
@@ -59,6 +60,7 @@ export class ConversasPage {
             key: sala.key,
             roomname: sala.anuncio.titulo,
             nickname: this.usuario.data.nome_anunciante,
+            comprador_fcm: sala.comprador_fcm,
             anuncio: sala.anuncio,
         }).present();
     }

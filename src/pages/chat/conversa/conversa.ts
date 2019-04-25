@@ -5,6 +5,7 @@ import {snapshotToArray} from "../conversas/conversas";
 import {Util} from "../../../providers/base/util";
 import {HttpClient} from "@angular/common/http";
 import {AuthProvider} from "../../../providers/auth/auth";
+import {AnuncioProvider} from "../../../providers/anuncio/anuncio";
 
 /**
  * Generated class for the ConversaPage page.
@@ -17,6 +18,9 @@ import {AuthProvider} from "../../../providers/auth/auth";
 @Component({
     selector: 'page-conversa',
     templateUrl: './conversa.html',
+    providers:[
+        AnuncioProvider
+    ]
 })
 export class ConversaPage {
 
@@ -30,14 +34,17 @@ export class ConversaPage {
     nickname:string;
     offStatus:boolean = false;
     roomname;
+    comprador_fcm;
 
     constructor(
         public navCtrl: NavController,
+        public anuncioProvider: AnuncioProvider,
         public http: HttpClient,
         public navParams: NavParams) {
         this.anuncio = this.navParams.get('anuncio');
         this.roomname = this.navParams.get('roomname');
         this.roomkey = this.navParams.get("key") as string;
+        this.comprador_fcm = this.navParams.get("comprador_fcm") as string;
         this.nickname = this.navParams.get("nickname") as string;
         this.data.type = 'message';
         this.data.nickname = this.nickname;
@@ -66,6 +73,12 @@ export class ConversaPage {
     sendMessage() {
 
         let newData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
+        this.anuncioProvider.alertaChat(this.comprador_fcm, {
+            titulo: 'Oi',
+            mensagem: this.data.nickname + ' enviou uma mensagem'
+        }).subscribe(res=>{
+
+        });
         newData.set({
             type:this.data.type,
             user:this.data.nickname,

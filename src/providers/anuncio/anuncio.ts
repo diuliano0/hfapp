@@ -107,4 +107,15 @@ export class AnuncioProvider {
     return this.http.get(_url, options);
   }
 
+  alertaChat(token, data, params: any = {}, headers: HttpHeaders = null): Observable<any> {
+    return this.http.post(this.ressourceUrl + '/alerta-chat/' + token, data, {
+      params: params,
+      headers: headers
+    }).pipe(
+        map((response: any) => {
+          return response;
+        })
+    );
+  }
+
 }
