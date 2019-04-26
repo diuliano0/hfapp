@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {AnuncioProvider} from "../../../providers/anuncio/anuncio";
 import {Util} from "../../../providers/base/util";
+import {AuthProvider} from "../../../providers/auth/auth";
 
 /**
  * Generated class for the AnuncioCreatePage page.
@@ -48,6 +49,7 @@ export class AnuncioCreatePage {
                 "descricao": anuncio.descricao,
                 "lng": anuncio.lng,
                 "lat": anuncio.lat,
+                "token": anuncio.token,
                 "enderecos": [{
                     'logradouro': anuncio.enderecos.data[0].logradouro,
                     'cep': anuncio.enderecos.data[0].cep,
@@ -117,6 +119,7 @@ export class AnuncioCreatePage {
         if (!this.checkedReadCreate) {
             if(!this.checkEnableEdit()){
                 let load = this.util.createLoading('Salvando');
+                this.anuncio['token'] = AuthProvider.getFCMToken();
                 this.anuncioProvider.create(this.anuncio).subscribe((res: any) => {
                     this.anuncio.id = res.data.id;
                     this.checkedReadPublished = true
@@ -133,8 +136,9 @@ export class AnuncioCreatePage {
     publicar() {
         this.checkedReadPublished = true
         let load = this.util.createLoading('Publicando');
+        this.anuncio['token'] = AuthProvider.getFCMToken();
         this.anuncioProvider.update(this.anuncio.id, this.anuncio).subscribe((res: any) => {
-            this.checkedReadPublished = true
+            this.checkedReadPublished = true;
             load.dismiss();
             this.dismiss();
         }, error => {

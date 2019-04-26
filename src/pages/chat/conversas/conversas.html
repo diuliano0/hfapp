@@ -33,7 +33,7 @@
                 <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
             </div>
             <ion-list>
-                <ion-item *ngFor="let room of rooms" (click)="abrirChat(room)">
+                <ion-item *ngFor="let room of rooms" (click)="abrirChat(room, room.anuncio.token)">
                     <ion-thumbnail item-start>
                         <img *ngIf="(room?.anuncio?.anexo?.data.length > 0)"
                              [src]="room?.anuncio?.anexo?.data[0]?.url_thumb">
@@ -72,7 +72,7 @@
                 <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
             </div>
             <ion-list>
-                <ion-item *ngFor="let room of rooms_i" (click)="abrirChat(room)">
+                <ion-item *ngFor="let room of rooms_i" (click)="abrirChat(room, room.comprador_fcm)">
                     <ion-thumbnail item-start>
                         <img *ngIf="(room?.anuncio?.anexo?.data.length > 0)"
                              [src]="room?.anuncio?.anexo?.data[0]?.url_thumb">

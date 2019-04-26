@@ -55,12 +55,12 @@ export class ConversasPage {
 
 
 
-    abrirChat(sala) {
+    abrirChat(sala, token) {
         this.modalCtrl.create('ConversaPage', {
             key: sala.key,
             roomname: sala.anuncio.titulo,
             nickname: this.usuario.data.nome_anunciante,
-            comprador_fcm: sala.comprador_fcm,
+            comprador_fcm: token,
             anuncio: sala.anuncio,
         }).present();
     }

@@ -131,6 +131,7 @@ export class AnuncioDetailPage {
                         key: newData.key,
                         roomname: this.anuncioDetalhe.titulo,
                         nickname: this.usuario.data.nome_anunciante,
+                        comprador_fcm: this.anuncioDetalhe.token,
                         anuncio: this.anuncioDetalhe,
                     }).present();
                     return;
@@ -141,6 +142,7 @@ export class AnuncioDetailPage {
                         roomname: this.anuncioDetalhe.titulo,
                         nickname: this.usuario.data.nome_anunciante,
                         anuncio: this.anuncioDetalhe,
+                        comprador_fcm: this.anuncioDetalhe.token,
                     }).present();
                 });
 

@@ -84,7 +84,7 @@ export class AuthProvider {
     }
 
     static getFCMToken(){
-        return window.localStorage.getItem('fcm_token').replace('"').replace('"');
+        return window.localStorage.getItem('fcm_token').replace('"','').replace('"','');
     }
 
     static setDeviceUUID(uuid){
