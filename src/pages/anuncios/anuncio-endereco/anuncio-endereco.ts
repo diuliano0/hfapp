@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EnderecoProvider} from "../../../providers/endereco/endereco";
 import {Util} from "../../../providers/base/util";
 import {Geolocation} from "@ionic-native/geolocation";
+import {Diagnostic} from "@ionic-native/diagnostic";
 
 @IonicPage()
 @Component({
@@ -11,7 +12,7 @@ import {Geolocation} from "@ionic-native/geolocation";
     templateUrl: './anuncio-endereco.html',
     providers: [
         Util,
-        Geolocation
+        Diagnostic
     ]
 })
 export class AnuncioEnderecoPage {
@@ -30,6 +31,7 @@ export class AnuncioEnderecoPage {
 
     constructor(public navCtrl: NavController,
                 public fb: FormBuilder,
+                private diagnostic: Diagnostic,
                 public modalCtrl: ModalController,
                 public util: Util,
                 private geolocation: Geolocation,
@@ -46,7 +48,7 @@ export class AnuncioEnderecoPage {
             'numero': [null, Validators.compose([Validators.maxLength(255)])],
             'cidade_nome': [null, Validators.compose([Validators.maxLength(255)])],
             'estado_nome': [null, Validators.compose([Validators.maxLength(255)])],
-            'complemento': [null, Validators.compose([Validators.minLength(3), Validators.maxLength(255)])],
+            'complemento': [null, Validators.compose([Validators.maxLength(255)])],
             'cidade_id': [null, Validators.compose([Validators.required])],
             'bairro_id': [null],
             'lat': [null],
@@ -135,32 +137,47 @@ export class AnuncioEnderecoPage {
     }
 
     abrirMapa(){
-        this.geolocation.getCurrentPosition().then((resp) => {
-            // resp.coords.latitude
-            // resp.coords.longitude
-            let modal = this.modalCtrl.create('AnuncioMapaPage', {
-                lat: resp.coords.latitude,
-                lng: resp.coords.longitude
-            });
-            modal.onDidDismiss((data )=> {
-                if(Util.isNullOrUndefined(data))
-                    return;
-                if(data.hasOwnProperty('data')){
-                    this.enderecoForm.controls['lat'].setValue(data.data.lat);
-                    this.enderecoForm.controls['lng'].setValue(data.data.lng);
-                    //this.enderecoForm.controls['logradouro'].setValue(data.data.titulo);
-                }
-            });
-            let load = this.util.createLoading('Abrindo mapa');
-            modal.present().then((value)=>{
-                load.dismiss();
-            }).catch((err)=>{
-                load.dismiss();
-                this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
-            });
-        }).catch((error) => {
-            this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
+        this.diagnostic.isGpsLocationEnabled().then(res=>{
+            if(res){
+                this.diagnostic.isGpsLocationAvailable().then(res=>{
+                    if(res){
+                        this.geolocation.getCurrentPosition().then((resp) => {
+                            let modal = this.modalCtrl.create('AnuncioMapaPage', {
+                                lat: resp.coords.latitude,
+                                lng: resp.coords.longitude
+                            });
+                            modal.onDidDismiss((data )=> {
+                                if(Util.isNullOrUndefined(data))
+                                    return;
+                                if(data.hasOwnProperty('data')){
+                                    this.enderecoForm.controls['lat'].setValue(data.data.lat);
+                                    this.enderecoForm.controls['lng'].setValue(data.data.lng);
+                                    //this.enderecoForm.controls['logradouro'].setValue(data.data.titulo);
+                                }
+                            });
+                            let load = this.util.createLoading('Abrindo mapa');
+                            modal.present().then((value)=>{
+                                load.dismiss();
+                            }).catch((err)=>{
+                                load.dismiss();
+                                this.alertaMapaNaoAtivo();
+                            });
+                        }).catch((error) => {
+                            this.alertaMapaNaoAtivo();
+                        });
+                    }else{
+                       this.alertaMapaNaoAtivo();
+                    }
+                });
+            }else{
+                this.alertaMapaNaoAtivo();
+            }
+
         });
+    }
+
+    alertaMapaNaoAtivo(){
+        this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
     }
 
     salvar(value){
