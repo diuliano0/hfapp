@@ -48,7 +48,7 @@ export class AnuncioEnderecoPage {
             'numero': [null, Validators.compose([Validators.maxLength(255)])],
             'cidade_nome': [null, Validators.compose([Validators.maxLength(255)])],
             'estado_nome': [null, Validators.compose([Validators.maxLength(255)])],
-            'complemento': [null, Validators.compose([Validators.maxLength(255)])],
+            'complemento': [null],
             'cidade_id': [null, Validators.compose([Validators.required])],
             'bairro_id': [null],
             'lat': [null],
@@ -67,14 +67,26 @@ export class AnuncioEnderecoPage {
     }
 
     getLocation(){
-        this.geolocation.getCurrentPosition().then((resp) => {
-            // resp.coords.latitude
-            // resp.coords.longitude
-            this.enderecoForm.controls['lat'].setValue(resp.coords.latitude);
-            this.enderecoForm.controls['lng'].setValue(resp.coords.longitude);
-        }).catch((error) => {
-            this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
-        });
+      this.diagnostic.isGpsLocationEnabled().then(res=> {
+        if (res) {
+          this.diagnostic.isGpsLocationAvailable().then(res => {
+            if (res) {
+              this.geolocation.getCurrentPosition().then((resp) => {
+                // resp.coords.latitude
+                // resp.coords.longitude
+                this.enderecoForm.controls['lat'].setValue(resp.coords.latitude);
+                this.enderecoForm.controls['lng'].setValue(resp.coords.longitude);
+              }).catch((error) => {
+                this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
+              });
+            }else{
+              this.alertaMapaNaoAtivo();
+            }
+          });
+        }else{
+          this.alertaMapaNaoAtivo();
+        }
+      });
     }
 
     localizaCep() {
