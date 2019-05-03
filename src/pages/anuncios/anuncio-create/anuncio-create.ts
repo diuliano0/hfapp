@@ -58,12 +58,15 @@ export class AnuncioCreatePage {
                     'estado_nome': anuncio.enderecos.data[0].estado_uf,
                     'complemento': anuncio.enderecos.data[0].complemento,
                     'cidade_id': anuncio.enderecos.data[0].cidade_id,
+                    'estado_id': anuncio.enderecos.data[0].estado_id,
                     'bairro_id': anuncio.enderecos.data[0].bairro_id,
                     'bairro': null,
                     'id': anuncio.enderecos.data[0].id,
                     'tipo_endereco': 0,
                 }]
             };
+
+            debugger;
         }
     }
 
@@ -90,7 +93,6 @@ export class AnuncioCreatePage {
                         this.anuncio['lng'] = data.data.lng;
                     }
                     this.anuncio['enderecos'] = [data.data];
-                    debugger;
                     this.checkedLocation = true;
                 }
             });

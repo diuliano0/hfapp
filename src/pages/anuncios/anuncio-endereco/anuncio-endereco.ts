@@ -47,6 +47,7 @@ export class AnuncioEnderecoPage {
             'cep': [null, Validators.compose([Validators.maxLength(255)])],
             'numero': [null, Validators.compose([Validators.maxLength(255)])],
             'cidade_nome': [null, Validators.compose([Validators.maxLength(255)])],
+            'estado_id': [null],
             'estado_nome': [null, Validators.compose([Validators.maxLength(255)])],
             'complemento': [null],
             'cidade_id': [null, Validators.compose([Validators.required])],
@@ -58,35 +59,30 @@ export class AnuncioEnderecoPage {
             'tipo_endereco': [0, Validators.compose([Validators.required, Validators.maxLength(255)])],
         });
         let anuncio = this.navParams.get("info");
-        if(!Util.isNullOrUndefined(anuncio) && anuncio.hasOwnProperty('enderecos')){
+        if (!Util.isNullOrUndefined(anuncio) && anuncio.hasOwnProperty('enderecos')) {
             this.enderecoForm.patchValue(anuncio.enderecos[0]);
+            this.mudarEstado(anuncio.enderecos[0].estado_id);
         }
         this.getLocation();
         this.listaEstados();
 
     }
 
-    getLocation(){
-      this.diagnostic.isGpsLocationEnabled().then(res=> {
-        if (res) {
-          this.diagnostic.isGpsLocationAvailable().then(res => {
+    getLocation() {
+        this.diagnostic.isGpsLocationEnabled().then(res => {
             if (res) {
-              this.geolocation.getCurrentPosition().then((resp) => {
-                // resp.coords.latitude
-                // resp.coords.longitude
-                this.enderecoForm.controls['lat'].setValue(resp.coords.latitude);
-                this.enderecoForm.controls['lng'].setValue(resp.coords.longitude);
-              }).catch((error) => {
-                this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
-              });
-            }else{
-              this.alertaMapaNaoAtivo();
+                this.geolocation.getCurrentPosition().then((resp) => {
+                    // resp.coords.latitude
+                    // resp.coords.longitude
+                    this.enderecoForm.controls['lat'].setValue(resp.coords.latitude);
+                    this.enderecoForm.controls['lng'].setValue(resp.coords.longitude);
+                }).catch((error) => {
+                    this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
+                });
+            } else {
+                this.alertaMapaNaoAtivo();
             }
-          });
-        }else{
-          this.alertaMapaNaoAtivo();
-        }
-      });
+        });
     }
 
     localizaCep() {
@@ -101,7 +97,7 @@ export class AnuncioEnderecoPage {
                 this.enderecoForm.controls['cidade_nome'].setValue(e.data.cidade_nome);
                 this.enderecoForm.controls['estado_nome'].setValue(e.data.estado_nome);
                 load.dismiss();
-            },error2 => {
+            }, error2 => {
                 load.dismiss();
             });
     }
@@ -144,56 +140,50 @@ export class AnuncioEnderecoPage {
         });
     }
 
-    mudarCidade(cidade){
+    mudarCidade(cidade) {
         this.enderecoForm.controls['cidade_id'].setValue(cidade.value.id);
     }
 
-    abrirMapa(){
-        this.diagnostic.isGpsLocationEnabled().then(res=>{
-            if(res){
-                this.diagnostic.isGpsLocationAvailable().then(res=>{
-                    if(res){
-                        this.geolocation.getCurrentPosition().then((resp) => {
-                            let modal = this.modalCtrl.create('AnuncioMapaPage', {
-                                lat: resp.coords.latitude,
-                                lng: resp.coords.longitude
-                            });
-                            modal.onDidDismiss((data )=> {
-                                if(Util.isNullOrUndefined(data))
-                                    return;
-                                if(data.hasOwnProperty('data')){
-                                    this.enderecoForm.controls['lat'].setValue(data.data.lat);
-                                    this.enderecoForm.controls['lng'].setValue(data.data.lng);
-                                    //this.enderecoForm.controls['logradouro'].setValue(data.data.titulo);
-                                }
-                            });
-                            let load = this.util.createLoading('Abrindo mapa');
-                            modal.present().then((value)=>{
-                                load.dismiss();
-                            }).catch((err)=>{
-                                load.dismiss();
-                                this.alertaMapaNaoAtivo();
-                            });
-                        }).catch((error) => {
-                            this.alertaMapaNaoAtivo();
-                        });
-                    }else{
-                       this.alertaMapaNaoAtivo();
-                    }
+    abrirMapa() {
+        this.diagnostic.isGpsLocationEnabled().then(res => {
+            if (res) {
+                this.geolocation.getCurrentPosition().then((resp) => {
+                    let modal = this.modalCtrl.create('AnuncioMapaPage', {
+                        lat: resp.coords.latitude,
+                        lng: resp.coords.longitude
+                    });
+                    modal.onDidDismiss((data) => {
+                        if (Util.isNullOrUndefined(data))
+                            return;
+                        if (data.hasOwnProperty('data')) {
+                            this.enderecoForm.controls['lat'].setValue(data.data.lat);
+                            this.enderecoForm.controls['lng'].setValue(data.data.lng);
+                            //this.enderecoForm.controls['logradouro'].setValue(data.data.titulo);
+                        }
+                    });
+                    let load = this.util.createLoading('Abrindo mapa');
+                    modal.present().then((value) => {
+                        load.dismiss();
+                    }).catch((err) => {
+                        load.dismiss();
+                        this.alertaMapaNaoAtivo();
+                    });
+                }).catch((error) => {
+                    this.alertaMapaNaoAtivo();
                 });
-            }else{
+            } else {
                 this.alertaMapaNaoAtivo();
             }
 
         });
     }
 
-    alertaMapaNaoAtivo(){
+    alertaMapaNaoAtivo() {
         this.util.criarAlert('Não te localizamos', 'Por favor ative sua localização para que possamos indicar seu anuncio corretamente.', 'ok');
     }
 
-    salvar(value){
-        if(!this.enderecoForm.invalid){
+    salvar(value) {
+        if (!this.enderecoForm.invalid) {
             this.viewCtrl.dismiss({data: value});
         }
     }

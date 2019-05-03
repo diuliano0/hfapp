@@ -25,13 +25,13 @@
             </ion-item>
             <ion-item id="estado">
                 <ion-label>Estado</ion-label>
-                <ion-select class="app-select-value" formControlName="estado_nome" placeholder="Selecione o Estado"
+                <ion-select class="app-select-value" formControlName="estado_id" placeholder="Selecione o Estado"
                             (ionChange)="mudarEstado($event)" okText="OK" cancelText="Cancelar">
                     <ion-option *ngFor="let estado of estados?.data; let i = index;" [value]="estado.id">{{estado.nome}}
                     </ion-option>
                 </ion-select>
             </ion-item>
-            <ion-item id="cidade" *ngIf="enderecoForm.controls['estado_nome'].value">
+            <ion-item id="cidade" *ngIf="enderecoForm.controls['estado_id'].value">
                 <ion-label>Cidade</ion-label>
                 <ionic-selectable
                                   [ngClass]="(!enderecoForm.controls['cidade_nome'].pristine) ? 'app-select-title' :'app-select-notitle' "

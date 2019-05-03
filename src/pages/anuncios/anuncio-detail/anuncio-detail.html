@@ -81,7 +81,11 @@
 
         <ion-list no-lines>
             <ion-list-header>
-                <p>Descrição </p>
+                <div class="price-section">
+                    <ion-item text-left no-lines class="price">
+                        DESCRIÇÃO
+                    </ion-item>
+                </div>
             </ion-list-header>
             <ion-item text-wrap>
                 <p text-justify [innerHTML]="anuncioDetalhe.descricao"></p>
