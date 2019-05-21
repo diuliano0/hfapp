@@ -35,21 +35,6 @@
                     <div class="error-message" *ngIf="!registrationForm.controls.nome.valid  && registrationForm.controls.nome.dirty">
                         <p>Nome é obrigatório.</p>
                     </div>
-                    <!-- User Name -->
-                    <ion-item>
-                        <ion-label>
-                            <ion-icon ios="ios-people" md="md-people" color="color2"></ion-icon>
-                        </ion-label>
-                        <ion-input type="text" placeholder="Login" name="username" formControlName="username"
-                                   [(ngModel)]="registrationForm.username"
-                                   [class.invalid]="!registrationForm.controls.username.valid && registrationForm.controls.username.dirty"></ion-input>
-                    </ion-item>
-
-                    <!-- Name Validation Message  -->
-                    <div class="error-message"
-                         *ngIf="!registrationForm.controls.username.valid  && registrationForm.controls.username.dirty">
-                        <p>Login é obrigatório.</p>
-                    </div>
 
                     <!-- Email Address -->
                     <ion-item>
@@ -57,7 +42,6 @@
                             <ion-icon name="md-mail" color="color2"></ion-icon>
                         </ion-label>
                         <ion-input type="email" placeholder="E-mail" name="email" formControlName="email"
-                                   [(ngModel)]="registrationForm.email"
                                    [class.invalid]="!registrationForm.controls.email.valid && registrationForm.controls.email.dirty"></ion-input>
                     </ion-item>
 
@@ -105,9 +89,7 @@
                             <ion-icon ios="ios-call" md="md-call" color="color2"></ion-icon>
                         </ion-label>
                         <ion-input type="tel" placeholder="Telefone" name="telefone" formControlName="telefone"
-                                   autocomplete="on"
-                                   (keypress)="phoneMask(registrationForm.controls.telefone.value, $event.target)"
-                                   [(ngModel)]="registrationForm.telefone"
+                                   [brmasker]="{phone: true}"
                                    [class.invalid]="!registrationForm.controls.telefone.valid && registrationForm.controls.telefone.dirty"></ion-input>
                     </ion-item>
 

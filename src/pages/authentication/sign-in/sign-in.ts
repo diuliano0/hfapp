@@ -78,7 +78,13 @@ export class SignInPage {
         }).subscribe(res => {
           AuthProvider.setUser(res);
           this.navCtrl.setRoot(ANUNCIO_ROUTE_LIST);
+        },error2 => {
+          this.util.toastAlert('O usuario não é um beneficiario');
+          AuthProvider.deslogar();
+
         });
+      }, error2 => {
+        this.util.toastAlert('Usuario e/ou senha inválidos');
       });
     }
   }

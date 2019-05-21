@@ -25,7 +25,7 @@
                         <ion-label>
                             <ion-icon name="md-mail" color="color2"></ion-icon>
                         </ion-label>
-                        <ion-input type="text" placeholder="Usuário" name="username" formControlName="username"
+                        <ion-input type="text" placeholder="E-mail" name="username" formControlName="username"
                                    [(ngModel)]="signInForm.username"
                                    [class.invalid]="!signInForm.controls.username.valid && signInForm.controls.username.dirty"></ion-input>
                     </ion-item>
@@ -33,7 +33,7 @@
                     <!-- Email Validation Message  -->
                     <div class="error-message"
                          *ngIf="!signInForm.controls.username.valid  && signInForm.controls.username.dirty">
-                        <p>O usuário é obrigatório.</p>
+                        <p>O e-mail é obrigatório.</p>
                     </div>
 
                     <!-- Password -->

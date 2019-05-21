@@ -54,8 +54,8 @@ export class SignUpPage {
      */
     formValidation() {
         this.registrationForm = this.formBuilder.group({
-            nome: ['', Validators.compose([Validators.minLength(6), Validators.required])],
-            username: ['', Validators.compose([Validators.minLength(6), Validators.maxLength(255), Validators.required])],
+            nome: ['', Validators.compose([Validators.minLength(3), Validators.required])],
+            username: [null],
             email: ['', Validators.compose([Validators.pattern(this.emailPattern), Validators.required])],
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
             password_confirmation: [null, Validators.compose([Validators.minLength(6), Validators.maxLength(255), Validators.required])],
@@ -72,6 +72,8 @@ export class SignUpPage {
      * ** You can call any backend API into this function. **
      */
     doRegistration(value) {
+        this.registrationForm.controls['username'].setValue(this.registrationForm.controls['email'].value);
+        value = this.registrationForm.value;
         if (!this.registrationForm.invalid) {
 
             let telefone = value.telefone.split(')');
