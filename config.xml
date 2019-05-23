@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="br.com.hortifruti" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="br.com.hortifruti" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Hortifrut Fácil</name>
     <description>Venha fazer parte dessa nova onda anúncie seus alimentos.</description>
     <author email="diuliano0@gmail.com" href="http://www.macronline.com.br/">Diuliano de Sousa Oliveira</author>
