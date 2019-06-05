@@ -8,4 +8,8 @@ page-anuncio-endereco {
   .botao_customizado{
     z-index: 999;
   }
+  .error-message {
+    font-size: 14px;
+    color: color($colors, danger);
+  }
 }

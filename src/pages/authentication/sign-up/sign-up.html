@@ -26,13 +26,13 @@
                         <ion-label>
                             <ion-icon ios="ios-person" md="md-person" color="color2"></ion-icon>
                         </ion-label>
-                        <ion-input type="text" placeholder="Nome" name="nome" formControlName="nome"
+                        <ion-input type="text" placeholder="Nome *" name="nome" formControlName="nome"
                                    [(ngModel)]="registrationForm.nome"
-                                   [class.invalid]="!registrationForm.controls.nome.valid && registrationForm.controls.nome.dirty"></ion-input>
+                                   [class.invalid]="!registrationForm.controls.nome.valid"></ion-input>
                     </ion-item>
 
                     <!-- Name Validation Message  -->
-                    <div class="error-message" *ngIf="!registrationForm.controls.nome.valid  && registrationForm.controls.nome.dirty">
+                    <div class="error-message" *ngIf="!registrationForm.controls.nome.valid">
                         <p>Nome é obrigatório.</p>
                     </div>
 
@@ -41,13 +41,13 @@
                         <ion-label>
                             <ion-icon name="md-mail" color="color2"></ion-icon>
                         </ion-label>
-                        <ion-input type="email" placeholder="E-mail" name="email" formControlName="email"
-                                   [class.invalid]="!registrationForm.controls.email.valid && registrationForm.controls.email.dirty"></ion-input>
+                        <ion-input type="email" placeholder="E-mail *" name="email" formControlName="email"
+                                   [class.invalid]="!registrationForm.controls.email.valid"></ion-input>
                     </ion-item>
 
                     <!-- Email Validation Message  -->
                     <div class="error-message"
-                         *ngIf="!registrationForm.controls.email.valid  && registrationForm.controls.email.dirty">
+                         *ngIf="!registrationForm.controls.email.valid">
                         <p>Insira um email válido.</p>
                     </div>
 
@@ -56,14 +56,14 @@
                         <ion-label>
                             <ion-icon name="md-eye" color="color2"></ion-icon>
                         </ion-label>
-                        <ion-input type="password" placeholder="Senha" name="password" formControlName="password"
+                        <ion-input type="password" placeholder="Senha *" name="password" formControlName="password"
                                    [(ngModel)]="registrationForm.password"
-                                   [class.invalid]="!registrationForm.controls.password.valid && registrationForm.controls.password.dirty"></ion-input>
+                                   [class.invalid]="!registrationForm.controls.password.valid"></ion-input>
                     </ion-item>
 
                     <!-- Password Validation Message  -->
                     <div class="error-message"
-                         *ngIf="!registrationForm.controls.password.valid  && registrationForm.controls.password.dirty">
+                         *ngIf="!registrationForm.controls.password.valid">
                         <p>A senha é obrigatória.</p>
                     </div>
 
@@ -72,15 +72,15 @@
                         <ion-label>
                             <ion-icon name="md-eye" color="color2"></ion-icon>
                         </ion-label>
-                        <ion-input type="password" placeholder="Confirmar Senha" name="password_confirmation"
+                        <ion-input type="password" placeholder="Confirmar Senha *" name="password_confirmation"
                                    formControlName="password_confirmation"
                                    [(ngModel)]="registrationForm.password_confirmation"
-                                   [class.invalid]="!registrationForm.controls.password_confirmation.valid && registrationForm.controls.password_confirmation.dirty"></ion-input>
+                                   [class.invalid]="!registrationForm.controls.password_confirmation.valid"></ion-input>
                     </ion-item>
 
                     <!-- Password Validation Message  -->
                     <div class="error-message"
-                         *ngIf="!registrationForm.controls.password_confirmation.valid  && registrationForm.controls.password_confirmation.dirty">
+                         *ngIf="!registrationForm.controls.password_confirmation.valid">
                         <p>A Confirmar senha é obrigatório.</p>
                     </div>
 
@@ -88,14 +88,14 @@
                         <ion-label>
                             <ion-icon ios="ios-call" md="md-call" color="color2"></ion-icon>
                         </ion-label>
-                        <ion-input type="tel" placeholder="Telefone" name="telefone" formControlName="telefone"
+                        <ion-input type="tel" placeholder="Telefone *" name="telefone" formControlName="telefone"
                                    [brmasker]="{phone: true}"
-                                   [class.invalid]="!registrationForm.controls.telefone.valid && registrationForm.controls.telefone.dirty"></ion-input>
+                                   [class.invalid]="!registrationForm.controls.telefone.valid"></ion-input>
                     </ion-item>
 
                     <!-- Name Validation Message  -->
                     <div class="error-message"
-                         *ngIf="!registrationForm.controls.telefone.valid  && registrationForm.controls.telefone.dirty">
+                         *ngIf="!registrationForm.controls.telefone.valid">
                         <p>Telefone e obrigatório.</p>
                     </div>
 

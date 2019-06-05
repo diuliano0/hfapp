@@ -11,7 +11,7 @@
         <ion-list>
             <ion-item>
                 <button ion-button round block type="button" (tap)="abrirMapa()" class="custom-btn botao_customizado">
-                    Onde o anuncio está localizado?
+                    Click e insira a localização. *
                 </button>
             </ion-item>
             <ion-item>
@@ -23,6 +23,10 @@
                        [textMask]="{mask: cepMask}"
                        [class.invalid]="!enderecoForm.controls['cep'].valid && enderecoForm.controls['cep'].dirty"/>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!enderecoForm.controls['cep'].valid">
+                <p>CEP é obrigatório.</p>
+            </div>
             <ion-item id="estado">
                 <ion-label>Estado</ion-label>
                 <ion-select class="app-select-value" formControlName="estado_id" placeholder="Selecione o Estado"
@@ -31,6 +35,10 @@
                     </ion-option>
                 </ion-select>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!enderecoForm.controls['estado_id'].valid">
+                <p>Estado é obrigatório.</p>
+            </div>
             <ion-item id="cidade" *ngIf="enderecoForm.controls['estado_id'].value">
                 <ion-label>Cidade</ion-label>
                 <ionic-selectable
@@ -45,14 +53,22 @@
                                   [canSearch]="true">
                 </ionic-selectable>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!enderecoForm.controls['cidade_id'].valid && enderecoForm.controls['estado_id'].value">
+                <p>Cidade é obrigatório.</p>
+            </div>
             <ion-item>
                 <ion-input type="text"
-                           placeholder="Referência"
+                           placeholder="Referência *"
                            class="text-input text-input-ios"
                            name="logradouro"
                            formControlName="logradouro"
                            [class.invalid]="!enderecoForm.controls['logradouro'].valid && enderecoForm.controls['logradouro'].dirty"></ion-input>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!enderecoForm.controls['logradouro'].valid">
+                <p>Referência é obrigatório.</p>
+            </div>
             <ion-item>
                 <ion-input type="text"
                            placeholder="Número"
@@ -67,6 +83,14 @@
                            formControlName="complemento"
                            [class.invalid]="!enderecoForm.controls['complemento'].valid && enderecoForm.controls['complemento'].dirty"></ion-input>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!enderecoForm.controls['numero'].valid">
+                <p>Número é obrigatório.</p>
+            </div>
+            <div class="error-message"
+                 *ngIf="!enderecoForm.controls['complemento'].valid">
+                <p>Complemento é obrigatório.</p>
+            </div>
         </ion-list>
         <button ion-button round block type="submit" class="custom-btn">
             Salvar
