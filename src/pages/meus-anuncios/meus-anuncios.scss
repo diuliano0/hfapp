@@ -22,7 +22,28 @@ page-meus-anuncios {
   @-moz-keyframes pulse {to {box-shadow: 0 0 0 85px rgba(232, 76, 61, 0);}}
   @-ms-keyframes pulse {to {box-shadow: 0 0 0 85px rgba(232, 76, 61, 0);}}
   @keyframes pulse {to {box-shadow: 0 0 0 85px rgba(232, 76, 61, 0);}}
+  .card-info {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    margin-top: -50px;
 
+    ion-icon {
+      font-size: 40pt;
+      color: #1c77ba;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 12pt;
+      margin-bottom: 30px;
+    }
+
+    span {
+      font-style: italic;
+    }
+  }
   ion-content {
     background-image: linear-gradient(to right bottom, color($colors, color1), color($colors, color2));
     background-size: 100% 100%;

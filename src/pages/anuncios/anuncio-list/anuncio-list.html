@@ -8,13 +8,9 @@
   <ion-refresher (ionRefresh)=" procedimentoRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-row *ngIf="items?.data?.length == 0" class="card-info">
-    <ion-col text-center>
-      <ion-icon name="camera"></ion-icon>
-      <p>Por favor, clique em capturar para enviar fotos de exames a uma clínica de sua escolha.</p>
-      <span>Obs.: Capture a foto em um local claro com boa iluminação, para que a foto possa estar legível..</span>
-    </ion-col>
-  </ion-row>
+    <div *ngIf="items?.data?.length == 0">
+        <img src="assets/imgs/ic_empty_list.svg"  height="200px" class="empty-list">
+    </div>
     <!-- List of Hotels  -->
     <ion-list no-lines no-margin *ngFor="let item of items?.data" (tap)="viewDetails(item)">
       <ion-item class="animated fadeInLeft">
