@@ -26,6 +26,7 @@ import {EnderecoProvider} from '../providers/endereco/endereco';
 import {UniqueDeviceID} from "@ionic-native/unique-device-id";
 import {FCM} from "@ionic-native/fcm";
 import {Geolocation} from "@ionic-native/geolocation";
+import {BrMaskerModule} from "brmasker-ionic-3";
 
 registerLocaleData(ptBr);
 // By default TranslateLoader will look for translation json files in i18n/
@@ -56,7 +57,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         }),
         Ionic2RatingModule,
         IonicImageViewerModule,
-        CalendarModule
+        CalendarModule,
+        BrMaskerModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [

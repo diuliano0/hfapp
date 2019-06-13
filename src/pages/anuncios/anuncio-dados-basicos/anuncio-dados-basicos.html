@@ -10,22 +10,31 @@
         <ion-list>
             <ion-item>
                 <input type="text"
-                       placeholder="Titulo"
+                       placeholder="Titulo *"
                        spellcheck="true"
                        class="text-input text-input-ios"
                        name="titulo"
                        formControlName="titulo"
                        [class.invalid]="!formDadosBasicos.controls['titulo'].valid && formDadosBasicos.controls['titulo'].dirty"/>
             </ion-item>
+            <!-- Password Validation Message  -->
+            <div class="error-message"
+                 *ngIf="!formDadosBasicos.controls['titulo'].valid">
+                <p>Titulo é obrigatório.</p>
+            </div>
             <ion-item>
-                <ion-label>Oque deseja?</ion-label>
+                <ion-label>Oque deseja? *</ion-label>
                 <ion-select formControlName="tipo">
                     <ion-option [value]="0">Comprar</ion-option>
                     <ion-option [value]="1">Vender</ion-option>
                 </ion-select>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!formDadosBasicos.controls['tipo'].valid">
+                <p>Tipo é obrigatório.</p>
+            </div>
             <ion-item>
-                <ion-label>Qual produto?</ion-label>
+                <ion-label>Qual produto? *</ion-label>
                 <ionic-selectable *ngIf="categorias?.data"
                                   item-content
                                   [(ngModel)]="categoria_selected"
@@ -36,31 +45,47 @@
                                   [canSearch]="true">
                 </ionic-selectable>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!formDadosBasicos.controls['categoria_id'].valid">
+                <p>Categoria é obrigatório.</p>
+            </div>
             <ion-item>
                 <ion-input type="number"
-                           placeholder="Quantidade"
+                           placeholder="Quantidade *"
                            class="text-input text-input-ios"
                            name="quantidade"
                            formControlName="quantidade"
                            [class.invalid]="!formDadosBasicos.controls['quantidade'].valid && formDadosBasicos.controls['quantidade'].dirty"></ion-input>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!formDadosBasicos.controls['quantidade'].valid">
+                <p>Quantidade é obrigatório.</p>
+            </div>
             <ion-item>
                 <input type="text"
-                       placeholder="Valor"
+                       placeholder="Valor  *"
                        currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
                        class="text-input text-input-ios"
                        formControlName="valor"
                        [class.invalid]="!formDadosBasicos.controls['valor'].valid && formDadosBasicos.controls['valor'].dirty"/>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!formDadosBasicos.controls['valor'].valid">
+                <p>Valor é obrigatório.</p>
+            </div>
             <ion-item>
                 <ion-textarea
                         rows="6" cols="20"
-                        placeholder="Descricao"
+                        placeholder="Descricao  *"
                         class="text-input text-input-ios"
                         name="descricao"
                         formControlName="descricao"
                         [class.invalid]="!formDadosBasicos.controls['descricao'].valid && formDadosBasicos.controls['descricao'].dirty"></ion-textarea>
             </ion-item>
+            <div class="error-message"
+                 *ngIf="!formDadosBasicos.controls['descricao'].valid">
+                <p>Descricao é obrigatório.</p>
+            </div>
         </ion-list>
         <button ion-button round block type="submit" class="custom-btn">
             Salvar

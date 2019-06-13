@@ -47,7 +47,7 @@ export class AnuncioEnderecoPage {
             'cep': [null, Validators.compose([Validators.maxLength(255)])],
             'numero': [null, Validators.compose([Validators.maxLength(255)])],
             'cidade_nome': [null, Validators.compose([Validators.maxLength(255)])],
-            'estado_id': [null],
+            'estado_id': [null,Validators.compose([Validators.required])],
             'estado_nome': [null, Validators.compose([Validators.maxLength(255)])],
             'complemento': [null],
             'cidade_id': [null, Validators.compose([Validators.required])],

@@ -65,8 +65,6 @@ export class AnuncioCreatePage {
                     'tipo_endereco': 0,
                 }]
             };
-
-            debugger;
         }
     }
 

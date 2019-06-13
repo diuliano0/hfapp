@@ -1,4 +1,4 @@
-import {ActionSheetController, AlertController, LoadingController} from "ionic-angular";
+import {ActionSheetController, AlertController, LoadingController, ToastController} from "ionic-angular";
 import {Injectable} from "@angular/core";
 import {DatePipe} from "@angular/common";
 import {ConfigProvider} from "./config";
@@ -9,6 +9,7 @@ export class Util {
 
     constructor(public alerta: AlertController,
                 public actionSheetCtrl: ActionSheetController,
+                public toastController: ToastController,
                 public loadingCtrl: LoadingController) {
     }
 
@@ -214,5 +215,13 @@ export class Util {
 
         return conformedPhoneNumber.conformedValue;
 
+    }
+
+    async toastAlert(message, duracao = 2000){
+        const toast = await this.toastController.create({
+            message: message,
+            duration: duracao
+        });
+        toast.present();
     }
 }

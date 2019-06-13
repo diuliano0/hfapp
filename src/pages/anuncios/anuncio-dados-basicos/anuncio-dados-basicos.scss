@@ -5,4 +5,8 @@ page-anuncio-dados-basicos {
   .text-input {
     margin: 0 !important;
   }
+  .error-message {
+    font-size: 14px;
+    color: color($colors, danger);
+  }
 }

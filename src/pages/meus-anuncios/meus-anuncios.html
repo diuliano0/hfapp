@@ -14,9 +14,13 @@
     <ion-refresher (ionRefresh)=" procedimentoRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-    <div *ngIf="items?.data?.length == 0">
-        <img height="200px" src="assets/imgs/ic_empty_list.svg" class="empty-list">
-    </div>
+    <ion-row *ngIf="items?.data?.length == 0" class="card-info">
+        <ion-col text-center>
+            <ion-icon name="ios-nutrition"></ion-icon>
+            <p>Por favor, clique bo botão ao lado para iniciar o cadastro do anúncio.</p>
+            <span>Obs.: Preencha todos os passos para o anúncio ser cadastrado corretamente..</span>
+        </ion-col>
+    </ion-row>
     <!-- List of Hotels  -->
     <ion-list no-lines no-margin>
         <ion-item-sliding *ngFor="let item of items?.data">
