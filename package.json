@@ -94,8 +94,8 @@
       "cordova.plugins.diagnostic": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
