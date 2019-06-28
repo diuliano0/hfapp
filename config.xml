@@ -90,4 +90,3 @@
     <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^2.4.0" />
     <engine name="android" spec="6.3.0" />
 </widget>
-
